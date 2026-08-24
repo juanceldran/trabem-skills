@@ -90,6 +90,22 @@ Cuando se invoque /imputar:
 8. Si no puedes identificar con seguridad qué módulo debe actualizarse,
    haz como máximo una pregunta breve al desarrollador antes de registrar.
 
+## Tipo de proyecto
+
+Cada módulo se clasifica como:
+
+- Propio: producto o herramienta interna de TRABEM/Silvermind.
+- Cliente: trabajo realizado para un cliente externo.
+
+Determínalo a partir de la evidencia (repositorio, documentación,
+contexto del proyecto). Si no puedes determinarlo con seguridad la
+primera vez que creas la ficha del módulo, pregúntalo una sola vez:
+
+"¿Este proyecto es propio o para un cliente?"
+
+Registra el resultado en el campo "Tipo proyecto" de la ficha y no
+vuelvas a preguntarlo en imputaciones posteriores del mismo módulo.
+
 ## Valoración EIE
 
 Calcula:
@@ -418,6 +434,7 @@ Además de los campos estructurados de la base, deja en el contenido
 de la ficha:
 
 - descripción funcional;
+- tipo de proyecto (propio o cliente);
 - trabajo materializado;
 - trabajo pendiente;
 - repositorio;
@@ -444,6 +461,7 @@ Antes de usar los nuevos campos:
 
 Campos nuevos deseados:
 
+- Tipo proyecto
 - EIE AI-acelerado
 - EIE humano-dominante
 - AI-native rate %
@@ -459,6 +477,7 @@ Campos nuevos deseados:
 - Confianza MC1
 
 Tipos:
+- Tipo proyecto: select Propio / Cliente
 - EIE: número
 - porcentajes: número
 - costes: número/euro
