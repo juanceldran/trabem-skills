@@ -258,6 +258,11 @@ Nunca mezcles EIE con coste.
 EIE = valor/entidad de ingeniería producida.
 MC1 = coste directo realmente consumido para producirla.
 
+MC1 es solo lo que desaparecería si ese trabajo, cliente o módulo no
+existiera. Lo estructural —suscripciones planas de IA y de herramientas,
+infraestructura compartida, gastos generales— es MC2 y NUNCA se imputa
+al módulo, ni siquiera prorrateado.
+
 ### Coste hora humano
 
 Referencia provisional actual:
@@ -323,17 +328,26 @@ Coste humano MC1 =
 
 ### Coste IA
 
-Registra costes directamente atribuibles al módulo cuando puedan
-obtenerse de evidencia:
+Registra SOLO consumos de IA por uso directamente atribuibles al módulo,
+cuando puedan obtenerse de evidencia:
 
-- Claude/API;
-- modelos externos;
-- servicios de IA directamente atribuibles;
-- otros consumos específicos.
+- API de pago por uso imputable a este módulo (p. ej. locuciones,
+  transcripciones, embeddings de este producto);
+- modelos externos facturados por consumo del módulo;
+- otros consumos específicos medibles.
 
-No hagas repartos arbitrarios de costes generales.
+Las suscripciones planas de herramientas de IA (Claude Code, Claude,
+ChatGPT y equivalentes) son MC2: coste estructural del sistema
+AI-native, no coste directo del módulo. No desaparecerían si ese módulo
+no existiera.
 
-Si no existe dato fiable, deja pendiente.
+Por tanto:
+- NO las incluyas en Coste IA;
+- NO las prorratees por días, por módulos ni por ningún otro criterio;
+- si aportan contexto, menciónalas en el cuerpo de la ficha indicando
+  expresamente que son MC2 y que no se imputan.
+
+Si no existe dato fiable de consumo por uso, deja pendiente.
 
 ### Otros MC1
 
