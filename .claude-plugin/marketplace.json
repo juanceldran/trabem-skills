@@ -1,0 +1,13 @@
+{
+  "name": "trabem-skills",
+  "owner": {
+    "name": "TRABEM · Silvermind"
+  },
+  "plugins": [
+    {
+      "name": "trabem",
+      "source": "./trabem",
+      "description": "Skills compartidas de ingeniería AI-native TRABEM (imputación EIE/MC1 en Notion y las que vengan)."
+    }
+  ]
+}
