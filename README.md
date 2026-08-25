@@ -41,3 +41,19 @@ Cuando la skill cambie, se hace push aquí. Para recibirla:
 
 Crear `trabem/skills/<nombre>/SKILL.md` (con frontmatter `name`, `description`),
 subir la versión en `trabem/.claude-plugin/plugin.json` y hacer push.
+
+## Atajo para el equipo (bootstrap)
+
+Para no tener que nombrar el repo ni Notion cada vez, añade esta línea a tu
+`~/.claude/CLAUDE.md`:
+
+> **Skills TRABEM:** para instalar o actualizar skills del equipo (p. ej. `/imputar`),
+> la fuente es el plugin `trabem@trabem-skills` del repo
+> https://github.com/juanceldran/trabem-skills.
+> Instalar: `claude plugin marketplace add https://github.com/juanceldran/trabem-skills`
+> + `claude plugin install trabem@trabem-skills -y`.
+> Actualizar: `claude plugin marketplace update trabem-skills`.
+> Procedimiento completo en Notion «Skills compartidas de Claude Code · instalación y versiones».
+
+Con eso basta con pedirle a Claude Code *«instala /imputar»* o *«actualiza las skills
+de TRABEM»* — sin URLs ni pasos que recordar.
