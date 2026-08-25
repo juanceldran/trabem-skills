@@ -514,6 +514,37 @@ de la ficha:
 Cuando vuelvas a valorar el mismo módulo, deja constancia del nuevo
 commit SHA y actualiza la misma ficha.
 
+## Trazabilidad: tarea principal y subtareas (bitácora día a día)
+
+Cada ficha es una TAREA PRINCIPAL (el módulo). El trabajo se realiza en
+SUBTAREAS repartidas en varios días o sesiones, y esa evolución debe
+quedar registrada para poder seguir la traza.
+
+Regla, obligatoria en CADA /imputar: la ficha mantiene una BITÁCORA
+append-only. En cada imputación AÑADE una entrada nueva al final de la
+bitácora. NUNCA sobrescribas ni borres entradas anteriores.
+
+- Los campos estructurados (EIE central, estado, MC1…) reflejan el TOTAL
+  actual del módulo.
+- La bitácora refleja el AVANCE día a día: qué subtareas se hicieron y
+  cuándo.
+
+Cada entrada de bitácora incluye, como mínimo:
+
+- Fecha (YYYY-MM-DD).
+- Subtareas / trabajo concreto de esa sesión (lista breve y específica).
+- Commit(s) SHA de referencia y rama.
+- EIE materializado y EIE central en ese momento (para ver el avance).
+- Estado en ese momento.
+
+Agrupa al menos por día: si en un mismo día hubo varias sesiones, puedes
+juntarlas en una sola entrada con varias subtareas o poner varias
+entradas fechadas, pero nunca menos de una entrada por día con trabajo
+imputado.
+
+Sigue existiendo UNA sola ficha por módulo: no dupliques fichas por
+sesión. Las sesiones son entradas de la bitácora, no fichas nuevas.
+
 ## Campos de productividad y MC1 en Notion
 
 Antes de usar los nuevos campos:
@@ -569,7 +600,16 @@ Otros MC1:
 MC1 total:
 Ratio de compresión:
 Confianza MC1:
+
+## Bitácora (día a día · append-only, no reescribir)
+
+| Fecha | Subtareas / trabajo | Commit (rama) | EIE mat. → central | Estado |
+|-------|---------------------|---------------|--------------------|--------|
+| YYYY-MM-DD | … | abc1234 (rama) | 40 → 90 | En desarrollo |
 ```
+
+En cada /imputar añade una fila nueva a la bitácora; no toques las
+filas anteriores.
 
 ## Trabajos empezados antes de este sistema
 
