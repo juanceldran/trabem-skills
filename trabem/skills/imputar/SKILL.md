@@ -148,6 +148,38 @@ EIE bajo <= EIE central <= EIE alto
 
 No uses bajo/central/alto para representar únicamente lo ya construido.
 
+### Descuento por reutilización (obligatorio antes de fijar el EIE central)
+
+Criterio de la fuente de la verdad, fijado 2026-08-25.
+
+El EIE solo cuenta lo que un desarrollo convencional habría tenido que
+construir A MEDIDA. Si el módulo se apoya en plataforma, portal,
+infraestructura, admin, motor o componentes YA EXISTENTES, descuéntalo:
+el EIE central baja al tramo inferior de su banda.
+
+No valores como bespoke lo que reutiliza base ya construida. La
+reutilización real reduce el EIE cuando también lo habría reducido en un
+desarrollo convencional.
+
+Este descuento es un paso obligatorio, no opcional: aplícalo ANTES de
+fijar el EIE central, no después.
+
+### Bandas orientativas y guardarraíl de plausibilidad
+
+Bandas internas de referencia (a 60 €/h EIE):
+
+- Módulo sencillo: 30–50 h
+- Módulo estándar: 60–100 h
+- Módulo complejo: 100–180 h
+- Módulo crítico / integrado: 180–300 h
+- Proyecto especial: >300 h
+
+Guardarraíl: si un módulo que reutiliza base existente o es estándar cae
+en la banda crítico / integrado (180–300 h), es señal de que NO se
+descontó la reutilización. Revisa y corrige el EIE antes de registrar.
+No infles: la corrección se hace primero sobre el EIE, nunca subiendo el
+Factor K ni la constante.
+
 ## Productividad AI-native
 
 Además del EIE total del módulo, distingue qué parte del trabajo es
@@ -247,6 +279,13 @@ Es una referencia interna.
 
 No representa horas realmente facturadas ni precio final obligatorio
 al cliente.
+
+La constante de 60 €/h EIE es FIJA: no se negocia caso a caso ni se baja
+para ajustar una valoración. La presión de mercado se absorbe en el
+precio comercial final (que se decide fuera de este registro), nunca
+rebajando la constante. Lo único que se ajusta para que una valoración
+sea razonable es la PONDERACIÓN del EIE: el descuento por reutilización y
+un Factor K prudente aplicado una sola vez.
 
 ## MC1 real del módulo
 
@@ -383,8 +422,17 @@ EIE central / horas humanas reales totales
 Ejemplo:
 146 EIE / 18 horas humanas = 8,1x
 
-No calcules este ratio si las horas humanas son una estimación
-sin base suficiente.
+Solo con alcances homogéneos: calcula el ratio únicamente cuando las
+horas sean REGISTRADAS (reales y fiables) y cubran el MISMO alcance
+completo que el EIE. Con horas parciales o de una subtarea, numerador y
+denominador miden alcances distintos: deja el ratio vacío, no lo publiques.
+
+No calcules este ratio si las horas humanas son una estimación sin base
+suficiente.
+
+Guardarraíl: un ratio muy por encima de la banda observada del portfolio
+(~5–13x) indica casi siempre alcances distintos entre EIE y horas. No lo
+publiques; revisa antes de registrar.
 
 Añade también un nivel de confianza para la medición de coste/tiempo:
 - Baja

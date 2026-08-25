@@ -19,7 +19,7 @@ Dentro de Claude Code:
 ```
 
 Requisitos:
-- Acceso de lectura a este repositorio con tu sesión de git/GitHub (es privado).
+- El repositorio es público: no hace falta autenticación para añadir el marketplace.
 - El conector MCP de Notion activo en Claude Code (la skill escribe en Notion).
 
 Si tenías una copia personal antigua en `~/.claude/skills/imputar/`, bórrala para
