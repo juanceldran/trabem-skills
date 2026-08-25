@@ -255,6 +255,85 @@ IMPORTANTE:
 Estos porcentajes representan la COMPOSICIÓN DEL TRABAJO,
 no el porcentaje exacto de código escrito por IA.
 
+## Clasificación de reutilización del trabajo
+
+En cada imputación, el sistema DEBE evaluar automáticamente si el trabajo
+genera un activo reutilizable para la empresa. Esta valoración la hace el
+sistema a partir del código, arquitectura, alcance, dependencias y
+contexto. NUNCA se pregunta al desarrollador si su trabajo es reutilizable,
+ni se clasifica como reutilizable solo porque él lo afirme: la clasificación
+se deriva de evidencia técnica observable.
+
+Complementa —no sustituye— al "Descuento por reutilización" del EIE: aquel
+descuenta cuando ESTE módulo reutiliza base ya existente; esta sección
+clasifica si ESTE trabajo CREA un activo reutilizable.
+
+### Categorías (obligatorio clasificar en una)
+
+1. NO REUTILIZABLE — trabajo específico de un cliente, incidencia o
+   integración particular cuya lógica no se traslada a otro proyecto sin
+   rehacer una parte sustancial (corrección de datos, adaptación
+   excepcional, integración particular, cambio pedido solo por un cliente,
+   incidencia concreta).
+2. PARCIALMENTE REUTILIZABLE — contiene componentes, patrones o
+   conocimiento reutilizables, pero una parte relevante sigue siendo
+   específica. Cuando sea razonable, estima `% reutilizable estimado` y
+   separa `EIE creación reutilizable` de `EIE trabajo específico`.
+3. REUTILIZABLE — crea un módulo, componente, automatización,
+   infraestructura, skill, librería, proceso o capacidad usable en otros
+   proyectos sin rehacer su lógica principal. Puede requerir configuración,
+   parametrización, integración o adaptación menor y seguir siéndolo.
+
+### Criterios (valorar en conjunto)
+
+Desacoplamiento del cliente actual; parametrización/configuración; ausencia
+de datos, reglas o nombres hardcodeados específicos; posibilidad real de
+uso en otro proyecto; separación entre núcleo común e integración
+específica; interfaces o APIs reutilizables; documentación suficiente;
+tests; arquitectura modular; probabilidad razonable de uso futuro.
+
+No basta con que técnicamente "se pueda copiar código": debe existir una
+capacidad razonablemente transferible y aprovechable por la empresa.
+
+### Regla conservadora
+
+Ante duda entre dos categorías, usa la INFERIOR. No sobrevalores la
+reutilización. Reutilización potencial ≠ reutilización demostrada.
+
+### Estado de reutilización (registrar siempre)
+
+- `Reutilización: No / Parcial / Sí`
+- `Reutilización demostrada: Sí / No` — solo pasa a "Sí" cuando hay
+  evidencia de que el activo se ha utilizado después en otro cliente,
+  proyecto, módulo o proceso real.
+- `Justificación:` breve y verificable, derivada de evidencia técnica.
+
+### Regla EIE fundamental (no doble contabilización)
+
+El EIE de creación de un activo reutilizable se reconoce UNA SOLA VEZ.
+Cuando ese activo se reutiliza después, NO vuelvas a contabilizar como EIE
+nuevo el trabajo ya existente. En las reutilizaciones posteriores solo
+cuenta el trabajo realmente nuevo: configuración, adaptación, integración,
+personalización, migración, QA específico, despliegue, formación o
+desarrollo incremental real.
+
+El valor reutilizado pertenece al sistema productivo de la empresa, no a la
+productividad individual de quien realiza la nueva implantación.
+
+### Productividad estructural / reutilización
+
+Cuando un empleado crea un activo reutilizable, regístralo aparte, porque
+puede constituir una mejora estructural de la capacidad productiva de la
+empresa. Cuando después haya una reutilización demostrada, registra, si
+puede calcularse, `EIE evitado por reutilización`: el trabajo convencional
+equivalente que la empresa ya no necesita volver a producir gracias al
+activo existente.
+
+No sumes ese EIE evitado a la productividad individual ordinaria:
+manténlo separado como `Productividad estructural / reutilización`, para
+poder valorar después incentivos, dividendos de mejora o contribución a la
+productividad global de la empresa.
+
 ## Factor K
 
 Usa de forma prudente:
@@ -568,6 +647,12 @@ Campos nuevos deseados:
 - MC1 total
 - Ratio compresión
 - Confianza MC1
+- Reutilización
+- Reutilización demostrada
+- % reutilizable estimado
+- EIE creación reutilizable
+- EIE trabajo específico
+- EIE evitado por reutilización
 
 Tipos:
 - Tipo proyecto: select Propio / Cliente
@@ -577,6 +662,13 @@ Tipos:
 - horas: número
 - ratio: número
 - Confianza MC1: select Baja / Media / Alta
+- Reutilización: select No / Parcial / Sí
+- Reutilización demostrada: select Sí / No (o checkbox)
+- % reutilizable estimado: número
+- EIE creación reutilizable / EIE trabajo específico / EIE evitado por reutilización: número
+
+Nota: la base ya tiene un checkbox "Reutilizable"; el select "Reutilización"
+(No/Parcial/Sí) lo complementa con la categoría. No elimines el checkbox.
 
 Además, dentro del contenido de cada ficha deja un pequeño bloque:
 
@@ -600,6 +692,16 @@ Otros MC1:
 MC1 total:
 Ratio de compresión:
 Confianza MC1:
+
+## Reutilización
+
+Reutilización: No / Parcial / Sí
+Reutilización demostrada: Sí / No
+% reutilizable estimado:
+EIE creación reutilizable:
+EIE trabajo específico:
+EIE evitado por reutilización:
+Justificación:
 
 ## Bitácora (día a día · append-only, no reescribir)
 
