@@ -295,6 +295,26 @@ tests; arquitectura modular; probabilidad razonable de uso futuro.
 No basta con que técnicamente "se pueda copiar código": debe existir una
 capacidad razonablemente transferible y aprovechable por la empresa.
 
+### Producto multi-cliente / plataforma
+
+En productos que se despliegan a varias clínicas, hospitales o clientes, una
+capacidad de PRODUCTO —algo que va con la plataforma y es transferible a otro
+hospital, clínica o proyecto— es reutilizable (Sí o Parcial), aunque sea
+pequeña, porque no es trabajo a medida de un cliente concreto. Un cambio solo
+es NO reutilizable cuando es específico e intransferible: dato de un cliente,
+incidencia puntual sin valor de producto, adaptación excepcional.
+
+Lo que gatea el VALOR no es la clasificación, sino dos cosas:
+
+- `Reutilización demostrada`: "Sí" solo cuando el activo YA se usa en otro
+  hospital, clínica o proyecto real. "Poder ponerlo" es potencial, no
+  demostrada.
+- La regla de no doble contabilización del EIE de creación.
+
+Así la clasificación puede ser generosa sin inflar la productividad: el freno
+está en "demostrada" y en no recontar el EIE ya reconocido, no en negar la
+reutilización de una capacidad de producto.
+
 ### Regla conservadora
 
 Ante duda entre dos categorías, usa la INFERIOR. No sobrevalores la
