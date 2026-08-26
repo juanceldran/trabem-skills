@@ -1,7 +1,7 @@
 {
   "name": "trabem",
-  "description": "Skills compartidas de ingeniería AI-native TRABEM. Incluye /imputar: registro y valoración EIE + productividad AI-native + MC1 en la base oficial de Notion.",
-  "version": "2.0.0",
+  "description": "Skills compartidas de ingeniería AI-native TRABEM. /imputar: registro auditable (EIE, productividad AI-native, horas, MC1, reutilización). /valorar: valoración funcional IFPUG + contraste EIE + benchmark ISBSG + precio recomendado. Base oficial en Notion.",
+  "version": "2.1.0",
   "author": {
     "name": "TRABEM · Silvermind"
   }
