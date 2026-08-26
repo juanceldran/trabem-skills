@@ -1,7 +1,7 @@
 {
   "name": "trabem",
   "description": "Skills de ingeniería AI-native TRABEM. /imputar: registro auditable (EIE, productividad, MC1, reutilización). /valorar: valoración funcional IFPUG + benchmark ISBSG. /presupuestar: estimación ex ante (PF/EIE/MC1 previstos + Value Case + capacidad de absorción + precio y forma de cobro). Base en Notion.",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "author": {
     "name": "TRABEM · Silvermind"
   }

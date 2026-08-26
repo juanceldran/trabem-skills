@@ -43,6 +43,63 @@ la evidencia.
 
 ---
 
+# MODO DIARIO (invocación sin describir un trabajo)
+
+Si `/imputar` se invoca **sin describir un trabajo concreto** —vacío, solo un
+número de horas, o una nota tipo "flow"— entra en **modo diario**: imputa de
+una sola vez todo lo que la persona ha trabajado hoy, repartido entre sus
+módulos. El objetivo es que con solo teclear `/imputar` salga el cuadro del día
+sin que nadie calcule nada.
+
+1. **Identifica al desarrollador** (git user / responsable) y su **jornada por
+   defecto** (tabla de abajo). Es el total de horas humanas del día.
+2. **Detecta el trabajo del día:** commits de HOY (fecha local) en los repos
+   accesibles → los 2–4 módulos tocados (por repo/carpeta/rama). El trabajo sin
+   git (ops, Holded, Notion, etc.) lo nombra el desarrollador en una línea. Si
+   no hay evidencia ni nada que nombrar, pregunta qué se ha trabajado; no
+   inventes módulos.
+3. Por **cada módulo** tocado hoy: valora el **incremento** (EIE nuevo desde el
+   último commit registrado) y actualiza su ficha + añade fila de bitácora,
+   igual que en el modo de un módulo.
+4. **Reparte la jornada** entre los módulos del día **en proporción al EIE del
+   incremento** de cada uno → `Horas humanas` del día por módulo. `Base horas`
+   = **Registradas** (la jornada es el real fijo del día).
+5. Devuelve el **cuadro del día**: módulos tocados · EIE producido hoy ·
+   jornada (h) · € (interno = EIE×60×K; externo = PF×€/PF cuando sea funcional)
+   · y el **múltiplo del día = EIE producido ÷ jornada**.
+
+### Jornada por defecto (denominador fijo)
+
+| Persona | Jornada/día |
+|---|--:|
+| María | 7 h |
+| Juan | 7 h |
+| otros / default | 7 h |
+
+Es un valor fijo por persona (editable aquí). No se pregunta cada día.
+
+### Días especiales (override)
+
+Si un día es atípico —una sesión larga, un "flow", un esfuerzo
+extraordinario— se puede **forzar el total de horas**: `/imputar 10` usa 10 h
+ese día en lugar de la jornada por defecto. El reparto y el cuadro funcionan
+igual; deja constancia en la bitácora de que fue jornada extraordinaria.
+
+### Cuándo NO es modo diario
+
+Si `/imputar` recibe una **descripción de trabajo** (una frase sobre lo hecho)
+o `cerrar`, se comporta como siempre: imputación de UN módulo, o cierre. El
+modo diario solo se activa con invocación vacía o solo-horas.
+
+### Regla del múltiplo (coherencia)
+
+El múltiplo del día solo es real si lo imputado es **trabajo de HOY**. No metas
+en el día valoraciones retrospectivas de módulos construidos en días
+anteriores: eso dispara el múltiplo de forma falsa. Retrospectivo = imputación
+de módulo aparte, no cuenta en el cuadro diario.
+
+---
+
 # 1. FUENTE DE VERDAD
 
 Registrar cada trabajo en la base:
