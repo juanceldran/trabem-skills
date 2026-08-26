@@ -285,18 +285,27 @@ propone un precio coherente con el Método TRABEM.
 
 # OPERATIVO · DÓNDE SE REGISTRA
 
-Cada presupuesto se guarda como **baseline inmutable** (§17): una vez emitido,
-sus previsiones no se reescriben; las revisiones se añaden como nuevas
-entradas. Por su número de campos y su ciclo de vida propio (ex ante,
-comparación previsión vs realidad), lo natural es una **base de Notion
-«Presupuestos» separada** del Registro EIE, enlazada al módulo/producto. Si esa
-base aún no existe, coordínalo antes de escribir (no metas ~50 campos de
-presupuesto en las fichas de producción).
+Cada presupuesto es **una fila** en la base **📊 Presupuestos TRABEM ·
+Predicción vs realidad**
+(https://app.notion.com/p/8ba2ead5e35545ae82ba052902fbae75) — capa separada del
+Registro EIE (que es la fuente de verdad de PRODUCCIÓN). Rellena ahí los campos
+EX ANTE (§18): identificación, alcance previsto, PF/EIE/MC1 previstos,
+benchmark, TRABEM €/PF, Value Case, capacidad de absorción, precio y forma de
+cobro. Marca todo lo previsto como estimado.
 
-Al cerrarse el trabajo real, el presupuesto se contrasta con la ficha
-`/imputar` (real) y con `/valorar --reevaluar` (funcional): previsto vs
-observado en PF, EIE, MC1, precio y margen, para calibrar el histórico del
-segmento (`TRABEM €/PF`).
+- **Baseline inmutable (§17):** cuando el presupuesto pase a `Aceptado`, NO
+  reescribas sus campos previstos. Un cambio material de alcance crea una
+  **nueva fila** (sube `Versión presupuesto`) enlazada por `Presupuesto
+  anterior`; nunca borres la historia.
+- **Estado presupuesto:** Borrador → Valoración interna → Enviado → Negociación
+  → Aceptado / Rechazado → En ejecución → Pendiente valoración final → Cerrado.
+  Conserva también los **rechazados** (calibran €/PF y capacidad de absorción).
+- **Enlace a producción:** cuando el trabajo se registre con `/imputar`,
+  relaciona la(s) ficha(s) del Registro EIE en `Producción relacionada` (1
+  presupuesto → varios registros EIE). Los datos reales (PF, EIE, HH, MC1) se
+  agregan solos por **rollup** desde esas fichas; no los dupliques a mano.
+- **No escribas** desviaciones, accuracy ni €/PF: son fórmulas de la base.
 
-`/presupuestar` no fija tarifas oficiales ni presenta horas al cliente:
-produce una propuesta cerrada por alcance, defendible y trazable.
+`/presupuestar` no fija tarifas oficiales ni presenta horas al cliente: produce
+una propuesta cerrada por alcance, defendible y trazable, y deja el baseline
+para que `/valorar` mida después la realidad.

@@ -346,9 +346,24 @@ funcional = PF × €/PF de la banda`. No es tarifa; es contraste. PDR externo
 (peer group .NET UE): P25 6,3 · P50 7,9 · P75 11,2 h/PF, para comprobar orden
 de magnitud del esfuerzo convencional.
 
-**Dónde se registra:** en la ficha del módulo dentro del Registro EIE, como
-bloque `## Valoración /valorar (IFPUG)` con fecha, scope/boundary reales, tabla
-auditable de funciones, PF por tipo, contraste con el presupuesto baseline
-(desviaciones + accuracy + causa) y el aprendizaje para `/presupuestar`. Nunca
-sobrescribas una valoración ni el baseline del presupuesto: cada revisión se
-añade con su fecha.
+**Dónde se registra (dos capas):**
+
+1. **PF reales y análisis IFPUG → Registro EIE**, en la ficha del módulo:
+   campos `PF total`, `PF nuevos`, `PF reutilizados`, `€/PF (P65)`, `Referencia
+   funcional (€)`, `EIE/PF`, `Confianza PF`, y el bloque auditable `##
+   Valoración /valorar (IFPUG)` con la tabla de funciones.
+
+2. **Resultado ex post y contraste → 📊 Presupuestos TRABEM**
+   (https://app.notion.com/p/8ba2ead5e35545ae82ba052902fbae75), en la MISMA fila
+   del presupuesto (localízala por `Producción relacionada`, o crea el enlace si
+   falta): rellena Scope/Boundary real, PF detalle (EI/EO/EQ/ILF/EIF reales),
+   Precio real, Reutilización real, Value Case observado, Fecha cierre, Causa
+   desviación principal, Explicación, Aprendizaje y Confianza valoración final.
+
+Los datos productivos (EIE real, HH reales, MC1 real, PF reales) **NO** se
+copian a mano en Presupuestos: se agregan por rollup desde los registros EIE
+relacionados. Las **desviaciones y la accuracy son fórmulas** de la base — no
+las escribas. Si el módulo no tiene presupuesto (trabajo interno, arquitectura,
+deuda técnica, correctivo), haz solo el paso 1. Nunca sobrescribas una
+valoración ni el baseline del presupuesto (§2, §23): cada revisión se añade con
+su fecha.
