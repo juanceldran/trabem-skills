@@ -1,700 +1,464 @@
 ---
 name: imputar
-description: Registra y actualiza en Notion la valoración EIE del trabajo de ingeniería AI-native realizado en el proyecto actual.
+description: Registra en Notion, de forma homogénea y auditable, el trabajo técnico del equipo — EIE, productividad AI-native, horas, MC1 y reutilización. NO hace pricing comercial (eso es /valorar).
 argument-hint: "[descripción breve del trabajo realizado o 'cerrar']"
 disable-model-invocation: true
 ---
 
-# Imputar trabajo AI-native TRABEM
+# SKILL `/imputar`
 
-## Destino
+## Registro de trabajo, EIE, productividad AI-native, MC1 y reutilización
 
-Usa como registro oficial esta base de Notion:
+### MISIÓN
 
-https://app.notion.com/p/700528d4041b40fa84a6877f32da635c
+La skill `/imputar` existe para registrar de forma homogénea y auditable el
+trabajo técnico realizado por el equipo.
 
-Base:
-"📊 Registro EIE · Ingeniería AI-native TRABEM"
+Debe responder a cinco preguntas:
 
-El texto proporcionado por el desarrollador al ejecutar la skill es:
+1. ¿Qué trabajo se ha realizado?
+2. ¿Quién lo ha realizado?
+3. ¿Cuántas horas humanas reales ha consumido?
+4. ¿Qué esfuerzo técnico convencional equivalente representa?
+5. ¿Qué coste directo y qué capacidad reutilizable ha generado?
+
+`/imputar` NO es una skill de pricing comercial. No debe realizar análisis
+completo de Puntos Función IFPUG, benchmarking ISBSG ni fijar precio
+recomendado al cliente. Esos análisis pertenecen a `/valorar` (skill aparte;
+puede no existir todavía — si el usuario pide pricing, remitir a `/valorar`).
+
+### ENTRADA
+
+El texto que el desarrollador pasa al invocar la skill es:
 
 $ARGUMENTS
 
-Ese texto es únicamente contexto humano. No lo uses como única evidencia.
+Es únicamente contexto humano. No lo uses como única evidencia: analiza el
+trabajo real (repositorio, commits, diff, tests, despliegue).
 
-## Objetivo
+El desarrollador SÍ puede aportar sus horas humanas reales — es la fuente
+válida para `Horas humanas` y para `Base horas: Registradas`. NO le pidas que
+calcule EIE, Factor K, porcentajes ni MC1: eso lo hace el sistema a partir de
+la evidencia.
 
-Registrar la entidad real del trabajo producido mediante EIE
-(Esfuerzo de Ingeniería Convencional Equivalente).
+---
 
-EIE significa cuánto esfuerzo habría requerido razonablemente producir
-el mismo resultado mediante un proceso de ingeniería convencional.
+# 1. FUENTE DE VERDAD
 
-EIE NO son horas realmente trabajadas.
+Registrar cada trabajo en la base:
 
-Nunca preguntes al desarrollador:
-- cuántas horas ha trabajado;
-- cuánto tiempo ha usado Claude;
-- cuánto cree que vale el trabajo;
-- qué EIE cree que corresponde;
-- qué Factor K cree que corresponde.
+`📊 Registro EIE · Ingeniería AI-native TRABEM`
+https://app.notion.com/p/700528d4041b40fa84a6877f32da635c
 
-Claude realiza la valoración a partir de la evidencia.
+Antes de crear una nueva ficha, buscar si ya existe una ficha del mismo
+módulo/proyecto. Si existe, actualizarla y añadir nueva entrada en la
+bitácora. No crear fichas duplicadas para sucesivas sesiones del mismo módulo
+salvo que realmente sean módulos funcionalmente independientes.
 
-(Única excepción: la pregunta breve de cierre sobre tiempo humano
-fuera de Claude para el MC1, definida en "Horas humanas fuera de
-Claude". Nunca aplica al cálculo del EIE.)
+---
 
-## Procedimiento
+# 2. IDENTIFICACIÓN DEL TRABAJO
 
-Cuando se invoque /imputar:
+Registrar siempre: `Módulo`, `Proyecto`, `Responsable`, `Repositorio`,
+`Tipo proyecto`.
 
-1. Identifica automáticamente:
-   - repositorio actual;
-   - proyecto;
-   - rama actual;
-   - commit HEAD actual;
-   - estado de Git;
-   - cambios relevantes;
-   - commits y evolución del código que ayuden a entender el trabajo.
+Valores de Tipo proyecto: Propio · Cliente.
 
-2. Analiza el trabajo real disponible:
-   - arquitectura;
-   - modelos de datos;
-   - migraciones;
-   - backend;
-   - frontend;
-   - endpoints;
-   - integraciones;
-   - tests;
-   - configuración;
-   - documentación;
-   - infraestructura o despliegue si forman parte del trabajo.
+Registrar una descripción funcional breve pero suficiente para que otra
+persona pueda comprender qué se ha construido sin inspeccionar inmediatamente
+el código.
 
-3. Utiliza la descripción del desarrollador solo para comprender:
-   - qué considera que ha trabajado;
-   - qué sabe que queda pendiente;
-   - contexto funcional que el código no pueda mostrar por sí solo.
+---
 
-4. Busca primero en la base de Notion si ya existe una ficha
-   correspondiente al mismo módulo/trabajo.
+# 3. ORIGEN DEL TRABAJO
 
-5. Si existe:
-   ACTUALIZA ESA MISMA FICHA.
+Registrar `Origen del trabajo`. Valores:
 
-6. Si no existe:
-   CREA una nueva ficha.
+Cliente · Producto · Bug · Incidente producción · Mejora interna ·
+Deuda técnica · Arquitectura · Seguridad · Infraestructura ·
+Comercial / preventa · Regulatorio · Otro.
 
-7. No crees fichas duplicadas para distintas sesiones del mismo módulo.
+Cuando sea identificable: `Cliente origen`, `Proyecto origen`.
 
-8. Si no puedes identificar con seguridad qué módulo debe actualizarse,
-   haz como máximo una pregunta breve al desarrollador antes de registrar.
+El objetivo es permitir analizar después qué tipo de trabajo consume la
+capacidad del equipo.
 
-## Tipo de proyecto
+---
 
-Cada módulo se clasifica como:
+# 4. TIPO DE TRABAJO — CLASIFICACIÓN LIGERA
 
-- Propio: producto o herramienta interna de TRABEM/Silvermind.
-- Cliente: trabajo realizado para un cliente externo.
+`/imputar` clasifica el trabajo a alto nivel, SIN análisis IFPUG. Registrar
+`Tipo de trabajo`. Valores:
 
-Determínalo a partir de la evidencia (repositorio, documentación,
-contexto del proyecto). Si no puedes determinarlo con seguridad la
-primera vez que creas la ficha del módulo, pregúntalo una sola vez:
+Nueva funcionalidad · Evolutivo funcional · Correctivo ·
+Refactor / deuda técnica · Rendimiento / optimización · Seguridad / hardening ·
+Infraestructura / DevOps · Arquitectura / plataforma · Mixto.
 
-"¿Este proyecto es propio o para un cliente?"
+La clasificación se deriva de la evidencia: tarea, comportamiento esperado,
+diff, commits, tests y contexto.
 
-Registra el resultado en el campo "Tipo proyecto" de la ficha y no
-vuelvas a preguntarlo en imputaciones posteriores del mismo módulo.
+## Correctivo
 
-## Valoración EIE
+Si una función ya debía funcionar y se modifica para que haga lo que ya estaba
+previsto, clasificar como `Correctivo`. Ejemplos: botón que debía guardar y no
+guardaba; endpoint que debía aceptar una llamada y devolvía 400; cálculo
+incorrecto; campo que debía persistirse y no se persistía.
 
-Calcula:
+No considerar automáticamente estos trabajos como funcionalidad nueva. La
+valoración funcional detallada se hará con `/valorar`.
 
-### EIE materializado
+---
 
-Esfuerzo convencional equivalente correspondiente al trabajo
-realmente construido y verificable en este momento.
+# 5. EVIDENCIA TÉCNICA
 
-### EIE pendiente
+Inspeccionar cuando esté disponible: repositorio, rama, commits, diff
+relevante, modelos, vistas/endpoints, componentes, tests, integraciones,
+despliegue.
 
-Esfuerzo convencional equivalente razonablemente necesario para
-completar el alcance actual conocido:
+Registrar `Commit de referencia` y una descripción breve de la evidencia
+utilizada. No estimar alcance únicamente por líneas de código.
 
-- validación funcional;
-- pruebas reales;
-- integraciones pendientes;
-- edge cases;
-- hardening;
-- despliegue;
-- puesta en producción;
-- estabilización;
-- decisiones o ajustes necesarios para considerar entregado el módulo.
+---
 
-### EIE central
+# 6. EIE — ESFUERZO DE INGENIERÍA CONVENCIONAL EQUIVALENTE
 
-Es el EIE TOTAL esperado del módulo.
+EIE representa el esfuerzo razonable que habría requerido producir el mismo
+resultado mediante un proceso convencional de ingeniería con calidad
+equivalente. NO son horas reales trabajadas ni horas ficticias facturadas.
 
-Debe cumplirse aproximadamente:
+Estimar: `EIE bajo`, `EIE central`, `EIE alto`, `EIE materializado`,
+`EIE pendiente`. El central debe ser prudente y defendible.
 
-EIE materializado + EIE pendiente = EIE central
+---
 
-### EIE bajo y EIE alto
+# 7. DESCUENTO OBLIGATORIO POR REUTILIZACIÓN EXISTENTE
 
-Son el rango razonable del MÓDULO COMPLETO esperado.
+Antes de fijar el EIE, analizar qué parte del trabajo se apoya en activos ya
+existentes. No valorar de nuevo como bespoke: plataforma ya construida,
+componentes comunes, frameworks, portal existente, infraestructura,
+autenticación, librerías, SDK oficiales, módulos internos reutilizados.
 
-Debe cumplirse:
+El EIE valora únicamente el trabajo nuevo realmente necesario para el alcance.
+La reutilización existente debe REDUCIR el EIE del nuevo trabajo.
 
-EIE bajo <= EIE central <= EIE alto
+---
 
-No uses bajo/central/alto para representar únicamente lo ya construido.
+# 8. FACTOR K
 
-### Descuento por reutilización (obligatorio antes de fijar el EIE central)
+Registrar `Factor K`. Reconoce conocimiento especializado que condiciona
+materialmente cómo debe resolverse el problema.
 
-Criterio de la fuente de la verdad, fijado 2026-08-25.
+- 1,00 → ejecución estándar
+- 1,05–1,10 → conocimiento específico
+- 1,10–1,20 → conocimiento especializado
+- > 1,20 → excepcional, requiere justificación explícita
 
-El EIE solo cuenta lo que un desarrollo convencional habría tenido que
-construir A MEDIDA. Si el módulo se apoya en plataforma, portal,
-infraestructura, admin, motor o componentes YA EXISTENTES, descuéntalo:
-el EIE central baja al tramo inferior de su banda.
+No contabilizar dos veces la misma dificultad: si ya elevó el EIE, no volver a
+aplicarla íntegramente vía K. Ante duda, el K inferior.
 
-No valores como bespoke lo que reutiliza base ya construida. La
-reutilización real reduce el EIE cuando también lo habría reducido en un
-desarrollo convencional.
+---
 
-Este descuento es un paso obligatorio, no opcional: aplícalo ANTES de
-fijar el EIE central, no después.
+# 9. REFERENCIA TÉCNICA
 
-### Bandas orientativas y guardarraíl de plausibilidad
+`Referencia técnica = EIE central × 60 € × Factor K`.
 
-Bandas internas de referencia (a 60 €/h EIE):
+La constante de 60 €/EIE permanece vigente hasta revisión formal. Es una
+referencia técnica interna; NO es automáticamente el precio final del cliente.
+No presentar las EIE como horas realmente trabajadas.
 
-- Módulo sencillo: 30–50 h
-- Módulo estándar: 60–100 h
-- Módulo complejo: 100–180 h
-- Módulo crítico / integrado: 180–300 h
-- Proyecto especial: >300 h
+---
 
-Guardarraíl: si un módulo que reutiliza base existente o es estándar cae
-en la banda crítico / integrado (180–300 h), es señal de que NO se
-descontó la reutilización. Revisa y corrige el EIE antes de registrar.
-No infles: la corrección se hace primero sobre el EIE, nunca subiendo el
-Factor K ni la constante.
+# 10. HORAS HUMANAS
 
-## Productividad AI-native
+Registrar separadamente:
 
-Además del EIE total del módulo, distingue qué parte del trabajo es
-altamente acelerable mediante IA y qué parte continúa dependiendo
-principalmente de intervención humana.
+- `Horas humanas Claude`: tiempo humano trabajando activamente mediante Claude
+  Code u otras herramientas AI-native.
+- `Horas humanas fuera`: tiempo humano fuera del entorno AI (reuniones,
+  validación física, operación, coordinación, pruebas manuales, etc.).
+- `Horas humanas totales`: suma de ambas.
 
-### EIE AI-acelerado
+---
 
-Parte del EIE central correspondiente a actividades cuyo esfuerzo
-se ha reducido materialmente gracias al uso de Claude/IA.
+# 11. CALIDAD DEL DATO DE HORAS
 
-Ejemplos:
-- generación y modificación de código;
-- backend;
-- frontend;
-- modelos;
-- migraciones;
-- APIs;
-- tests automatizables;
-- documentación técnica;
-- refactoring;
-- análisis técnico;
-- tareas repetitivas de integración;
-- configuración automatizable.
+Registrar `Base horas`. Valores: Registradas · Estimadas.
 
-No significa que la IA haya trabajado sola.
-Significa que esa parte del proceso ha sido materialmente comprimida
-por el sistema AI-native.
+No presentar horas reconstruidas retrospectivamente como registradas. Si no
+hay evidencia suficiente, usar `Estimadas` y explicarlo. Para productividad
+individual e incentivos, las horas registradas tienen prioridad clara.
 
-### EIE humano-dominante
+---
 
-Parte del EIE central correspondiente a actividades cuya ejecución
-sigue dependiendo principalmente del criterio, interacción o
-intervención humana.
+# 12. PRODUCTIVIDAD AI-NATIVE
 
-Ejemplos:
-- validación con usuarios reales;
-- onboarding;
-- decisiones de producto;
-- aceptación funcional;
-- reuniones necesarias;
-- coordinación con cliente;
-- pruebas operativas reales;
-- decisiones ante edge cases;
-- configuración que requiera conocimiento específico del cliente;
-- puesta en marcha que requiera interacción humana;
-- estabilización operativa;
-- formación.
+Separar el EIE según composición del trabajo: `EIE AI-acelerado`,
+`EIE humano-dominante`, `AI-native rate %`, `Humano-dominante %`.
 
-Debe cumplirse aproximadamente:
+- AI-acelerado: trabajo cuya ejecución puede comprimirse materialmente
+  mediante IA (código, tests, migraciones, documentación técnica, búsquedas,
+  refactor, generación de estructuras, automatización).
+- Humano-dominante: trabajo donde el criterio humano sigue siendo la parte
+  principal (decisiones de producto, aceptación con cliente, validación
+  clínica, pruebas físicas, decisiones regulatorias, coordinación crítica,
+  definición de reglas ambiguas).
 
-EIE AI-acelerado + EIE humano-dominante = EIE central
+No usar esta división para exagerar productividad.
 
-No fuerces una precisión falsa.
-Si existe una zona híbrida, clasifícala según cuál sea el factor
-dominante y explica brevemente la decisión.
+---
 
-### AI-native rate
+# 13. RATIO DE COMPRESIÓN
 
-Calcula:
+`Ratio compresión = EIE / Horas humanas totales`, ÚNICAMENTE cuando:
 
-AI-native rate % =
-EIE AI-acelerado / EIE central × 100
+- las horas son Registradas;
+- cubren el mismo alcance que el EIE;
+- no se comparan horas de una subtarea con EIE de un módulo completo.
 
-Y:
+Si el alcance no es homogéneo, `Ratio compresión = vacío`. No publicar ratios
+artificiales.
 
-Humano-dominante % =
-EIE humano-dominante / EIE central × 100
+---
 
-Ambos porcentajes deben sumar aproximadamente 100%.
+# 14. MC1 — COSTE DIRECTO DEL TRABAJO
 
-IMPORTANTE:
-Estos porcentajes representan la COMPOSICIÓN DEL TRABAJO,
-no el porcentaje exacto de código escrito por IA.
+Registrar `Coste hora humano` (referencia provisional: 30 €/h).
 
-## Clasificación de reutilización del trabajo
+`Coste humano MC1 = Horas humanas totales × coste hora`.
 
-En cada imputación, el sistema DEBE evaluar automáticamente si el trabajo
-genera un activo reutilizable para la empresa. Esta valoración la hace el
-sistema a partir del código, arquitectura, alcance, dependencias y
-contexto. NUNCA se pregunta al desarrollador si su trabajo es reutilizable,
-ni se clasifica como reutilizable solo porque él lo afirme: la clasificación
-se deriva de evidencia técnica observable.
+Registrar además `Coste IA`, `Otros MC1`, `MC1 total`.
 
-Complementa —no sustituye— al "Descuento por reutilización" del EIE: aquel
-descuenta cuando ESTE módulo reutiliza base ya existente; esta sección
-clasifica si ESTE trabajo CREA un activo reutilizable.
+---
 
-### Categorías (obligatorio clasificar en una)
+# 15. MC1 VS MC2
 
-1. NO REUTILIZABLE — trabajo específico de un cliente, incidencia o
-   integración particular cuya lógica no se traslada a otro proyecto sin
-   rehacer una parte sustancial (corrección de datos, adaptación
-   excepcional, integración particular, cambio pedido solo por un cliente,
-   incidencia concreta).
-2. PARCIALMENTE REUTILIZABLE — contiene componentes, patrones o
-   conocimiento reutilizables, pero una parte relevante sigue siendo
-   específica. Cuando sea razonable, estima `% reutilizable estimado` y
-   separa `EIE creación reutilizable` de `EIE trabajo específico`.
-3. REUTILIZABLE — crea un módulo, componente, automatización,
-   infraestructura, skill, librería, proceso o capacidad usable en otros
-   proyectos sin rehacer su lógica principal. Puede requerir configuración,
-   parametrización, integración o adaptación menor y seguir siéndolo.
+MC1 incluye solo costes directos que desaparecerían si ese trabajo concreto no
+existiera (horas humanas; API específica consumida; servicio externo usado
+exclusivamente para ese trabajo; infraestructura dedicada atribuible).
 
-### Criterios (valorar en conjunto)
+MC2 son costes estructurales que existirían igualmente (suscripción plana
+Claude Code; infraestructura general del equipo; herramientas corporativas;
+licencias generales). No prorratear MC2 arbitrariamente sobre cada módulo. La
+suscripción de Claude Code se trata expresamente como MC2 y no se imputa.
 
-Desacoplamiento del cliente actual; parametrización/configuración; ausencia
-de datos, reglas o nombres hardcodeados específicos; posibilidad real de
-uso en otro proyecto; separación entre núcleo común e integración
-específica; interfaces o APIs reutilizables; documentación suficiente;
-tests; arquitectura modular; probabilidad razonable de uso futuro.
+---
 
-No basta con que técnicamente "se pueda copiar código": debe existir una
-capacidad razonablemente transferible y aprovechable por la empresa.
+# 16. REUTILIZACIÓN
 
-### Producto multi-cliente / plataforma
+Clasificar `Reutilización`. Valores: No · Parcial · Sí. Registrar
+`% reutilizable estimado` cuando sea razonablemente cuantificable.
 
-En productos que se despliegan a varias clínicas, hospitales o clientes, una
-capacidad de PRODUCTO —algo que va con la plataforma y es transferible a otro
-hospital, clínica o proyecto— es reutilizable (Sí o Parcial), aunque sea
-pequeña, porque no es trabajo a medida de un cliente concreto. Un cambio solo
-es NO reutilizable cuando es específico e intransferible: dato de un cliente,
-incidencia puntual sin valor de producto, adaptación excepcional.
+- NO: trabajo específico que no puede reaprovecharse sustancialmente en otro
+  contexto.
+- PARCIAL: una parte relevante puede reaprovecharse, pero existe una parte
+  específica significativa.
+- SÍ: crea un activo utilizable después sin reconstruir sustancialmente su
+  lógica (módulo común, librería, skill, automatización, framework,
+  componente, integración parametrizable, capacidad de plataforma).
 
-Lo que gatea el VALOR no es la clasificación, sino dos cosas:
+Ante duda, la categoría inferior.
 
-- `Reutilización demostrada`: "Sí" solo cuando el activo YA se usa en otro
-  hospital, clínica o proyecto real. "Poder ponerlo" es potencial, no
-  demostrada.
-- La regla de no doble contabilización del EIE de creación.
+Producto multi-cliente: en un producto que se despliega a varias
+clínicas/hospitales/clientes, una capacidad de PRODUCTO transferible a otro
+despliegue es reutilizable (Sí/Parcial) aunque sea pequeña; no es trabajo a
+medida. El freno contra la inflación es `Reutilización demostrada` y la no
+doble contabilización, no negar la clasificación.
 
-Así la clasificación puede ser generosa sin inflar la productividad: el freno
-está en "demostrada" y en no recontar el EIE ya reconocido, no en negar la
-reutilización de una capacidad de producto.
+---
 
-### Regla conservadora
+# 17. REUTILIZACIÓN DEMOSTRADA
 
-Ante duda entre dos categorías, usa la INFERIOR. No sobrevalores la
-reutilización. Reutilización potencial ≠ reutilización demostrada.
+Registrar `Reutilización demostrada`. Valores: Sí · No. Solo marcar Sí cuando
+exista una utilización posterior REAL. No basta con que técnicamente parezca
+reutilizable ("poder ponerlo" es potencial, no demostrada).
 
-### Estado de reutilización (registrar siempre)
+---
 
-- `Reutilización: No / Parcial / Sí`
-- `Reutilización demostrada: Sí / No` — solo pasa a "Sí" cuando hay
-  evidencia de que el activo se ha utilizado después en otro cliente,
-  proyecto, módulo o proceso real.
-- `Justificación:` breve y verificable, derivada de evidencia técnica.
+# 18. SEPARACIÓN DEL EIE REUTILIZABLE
 
-### Regla EIE fundamental (no doble contabilización)
+Cuando proceda, registrar `EIE creación reutilizable` y
+`EIE trabajo específico`. Permite distinguir cuánto esfuerzo crea un activo
+estructural y cuánto pertenece solo al cliente/proyecto actual. La creación de
+un activo reutilizable se reconoce una sola vez.
 
-El EIE de creación de un activo reutilizable se reconoce UNA SOLA VEZ.
-Cuando ese activo se reutiliza después, NO vuelvas a contabilizar como EIE
-nuevo el trabajo ya existente. En las reutilizaciones posteriores solo
-cuenta el trabajo realmente nuevo: configuración, adaptación, integración,
-personalización, migración, QA específico, despliegue, formación o
-desarrollo incremental real.
+---
 
-El valor reutilizado pertenece al sistema productivo de la empresa, no a la
-productividad individual de quien realiza la nueva implantación.
+# 19. EIE EVITADO
 
-### Productividad estructural / reutilización
+Cuando exista una reutilización posterior demostrada, puede registrarse
+`EIE evitado` (campo `EIE evitado por reutilización`): aproximación al esfuerzo
+convencional que ya no ha sido necesario repetir gracias al activo existente.
 
-Cuando un empleado crea un activo reutilizable, regístralo aparte, porque
-puede constituir una mejora estructural de la capacidad productiva de la
-empresa. Cuando después haya una reutilización demostrada, registra, si
-puede calcularse, `EIE evitado por reutilización`: el trabajo convencional
-equivalente que la empresa ya no necesita volver a producir gracias al
-activo existente.
+No sumar ese EIE evitado a la productividad individual ordinaria: queda
+separado como productividad estructural de la empresa.
 
-No sumes ese EIE evitado a la productividad individual ordinaria:
-manténlo separado como `Productividad estructural / reutilización`, para
-poder valorar después incentivos, dividendos de mejora o contribución a la
-productividad global de la empresa.
+---
 
-## Factor K
+# 20. NO DOBLE CONTABILIZACIÓN
 
-Usa de forma prudente:
+Regla crítica: un mismo trabajo no puede generar varias veces el mismo EIE. Si
+un módulo reusable ya existe y se implanta en otro cliente, el nuevo trabajo
+solo incluye adaptación, integración, configuración, QA específico, migración,
+despliegue, personalización y trabajo incremental real. No volver a imputar el
+módulo completo.
 
-- 1.00: estándar, receta conocida y ejecución sustituible.
-- 1.05–1.10: conocimiento específico útil.
-- 1.10–1.20: arquitectura, dominio o know-how especializado que
-  condiciona materialmente la solución.
-- >1.20: únicamente excepcional y expresamente justificado.
+---
 
-No contabilices dos veces una misma dificultad mediante EIE y K.
+# 21. ESTADO DEL MÓDULO
 
-Ante duda utiliza el K inferior.
+Valores: En desarrollo · Cierre provisional · Pendiente producción ·
+En producción · Cerrado.
 
-## Referencia técnica
+`Materializado` refleja únicamente lo realmente construido; `Pendiente`
+refleja el trabajo futuro aún necesario. Nunca presentar trabajo pendiente
+como ya producido.
 
-Calcula:
+---
 
-Referencia técnica = EIE central × 60 € × Factor K
+# 22. CONFIANZA
 
-Es una referencia interna.
+Registrar `Confianza` (estimación EIE) y `Confianza MC1` de forma
+independiente. Valores: Baja · Media · Alta. Una ficha puede tener evidencia
+técnica alta pero horas retrospectivas con confianza media.
 
-No representa horas realmente facturadas ni precio final obligatorio
-al cliente.
+---
 
-La constante de 60 €/h EIE es FIJA: no se negocia caso a caso ni se baja
-para ajustar una valoración. La presión de mercado se absorbe en el
-precio comercial final (que se decide fuera de este registro), nunca
-rebajando la constante. Lo único que se ajusta para que una valoración
-sea razonable es la PONDERACIÓN del EIE: el descuento por reutilización y
-un Factor K prudente aplicado una sola vez.
+# 23. BITÁCORA APPEND-ONLY
 
-## MC1 real del módulo
+Cada sesión relevante añade una nueva entrada a la bitácora. Nunca reescribir
+retroactivamente la historia para que parezca que la valoración actual siempre
+fue la misma. Registrar por entrada: Fecha · Trabajo/subtareas · Commit ·
+EIE materializado → EIE central · Estado. Si una valoración cambia, dejar
+trazabilidad del valor anterior y del nuevo.
 
-Además de valorar la producción mediante EIE, registra separadamente
-el coste directo real atribuible al módulo.
+---
 
-Nunca mezcles EIE con coste.
+# 24. ACTUALIZACIÓN DE FICHAS EXISTENTES
 
-EIE = valor/entidad de ingeniería producida.
-MC1 = coste directo realmente consumido para producirla.
+Cuando `/imputar` se ejecute sobre un módulo ya registrado:
 
-MC1 es solo lo que desaparecería si ese trabajo, cliente o módulo no
-existiera. Lo estructural —suscripciones planas de IA y de herramientas,
-infraestructura compartida, gastos generales— es MC2 y NUNCA se imputa
-al módulo, ni siquiera prorrateado.
+1. recuperar la ficha existente;
+2. inspeccionar el trabajo nuevo desde el último commit registrado;
+3. valorar únicamente el incremento;
+4. actualizar materializado/pendiente/central si procede;
+5. actualizar costes y horas;
+6. revisar reutilización solo si hay nueva evidencia;
+7. añadir nueva entrada de bitácora.
 
-### Coste hora humano
+No recalcular todo desde cero sin necesidad.
 
-Referencia provisional actual:
+---
 
-30 €/hora
+# 25. GUARDARRAÍLES
 
-Debe poder modificarse posteriormente por persona.
+Revisar manualmente la valoración si ocurre cualquiera de estas situaciones:
+EIE muy alto para un módulo basado ampliamente en componentes existentes;
+ratio de compresión extraordinario; horas parciales frente a alcance total;
+reutilización evidente no descontada; K elevado sin justificación;
+materializado superior al alcance realmente construido; diferencias
+importantes respecto a fichas similares.
 
-No utilices 60 €/h.
-Los 60 €/EIE pertenecen a valoración técnica, no a coste.
+Ante discrepancia, preferir prudencia a inflación.
 
-### Horas humanas dentro del entorno Claude
+---
 
-Registra únicamente tiempo humano REAL que pueda obtenerse o
-reconstruirse con evidencia razonable del entorno.
+# 26. SALIDA DE `/imputar`
 
-No confundas:
-- duración total de una sesión;
-- tiempo que Claude estuvo ejecutando;
-- tiempo de espera;
-con tiempo humano activo.
+Al terminar, devolver un resumen breve:
 
-Si no existe evidencia suficientemente fiable, deja el dato como
-"no determinado" o con confianza baja.
+**Módulo:**
+**Responsable:**
+**Tipo/Origen:**
+**Estado:**
+**EIE materializado / central:**
+**Horas humanas:**
+**Base horas:**
+**MC1:**
+**Ratio compresión:** solo si válido
+**Reutilización:**
+**Referencia técnica:**
+**Confianza:**
+**Ficha actualizada:** sí/no
 
-NUNCA inventes horas para completar el MC1.
+No convertir esta salida en una propuesta comercial.
 
-### Horas humanas fuera de Claude
+---
 
-Incluye, cuando exista evidencia o el desarrollador lo indique:
-- onboarding;
-- reuniones;
-- validación con cliente;
-- pruebas presenciales;
-- formación;
-- intervención de producción;
-- otras tareas fuera del entorno.
+# 27. LO QUE `/imputar` NO DEBE HACER
 
-No preguntes por estas horas en cada /imputar.
+No realizar: conteo IFPUG completo; DET/FTR/RET; benchmark ISBSG; cálculo
+€/PF; análisis P65; precio recomendado de cliente; Value-Based Pricing
+completo; comparación comercial exhaustiva.
 
-Durante el desarrollo pueden quedar pendientes.
+Si el usuario solicita estos análisis, remitir el trabajo a `/valorar`.
 
-En el cierre del módulo, si existe trabajo humano externo relevante
-que no pueda obtenerse automáticamente, puedes hacer UNA sola pregunta
-breve:
+---
 
-"¿Ha habido tiempo humano relevante fuera de Claude que deba incorporar
-al MC1? Si sí, indícame aproximadamente cuánto y en qué."
+# 28. PRINCIPIO FINAL
 
-Si la respuesta es no, continúa sin más preguntas.
+`/imputar` mide la máquina productiva. Debe permitir conocer con evidencia:
+qué produjo cada persona; cuánto recurso humano consumió; cuánto esfuerzo
+convencional equivalente representa; cuánto costó; cuánto fue AI-acelerable;
+cuánto queda como activo reusable; y cuánta capacidad productiva está
+acumulando la empresa.
 
-Esta es la ÚNICA excepción a la regla de no preguntar horas al
-desarrollador: aplica solo al MC1 en el cierre, nunca al cálculo
-del EIE.
+La skill debe priorizar trazabilidad y consistencia sobre producir cifras
+espectaculares.
 
-### Coste humano MC1
+---
 
-Calcula únicamente cuando haya base suficiente:
+# OPERATIVO · CAMPOS EN NOTION Y PLANTILLA DE FICHA
 
-Coste humano MC1 =
-(horas humanas dentro de Claude + horas humanas fuera de Claude)
-× coste hora humano
+Antes de escribir: inspecciona el esquema actual de la base; si tienes
+permisos, añade los campos que falten (no elimines campos existentes).
 
-### Coste IA
+**Identificación:** `Módulo` (title), `Proyecto` (text), `Responsable` (text),
+`Repositorio` (url), `Tipo proyecto` (select Propio/Cliente), `Resumen` (text).
 
-Registra SOLO consumos de IA por uso directamente atribuibles al módulo,
-cuando puedan obtenerse de evidencia:
+**Origen y clasificación (campos nuevos):**
+- `Origen del trabajo` (select): Cliente · Producto · Bug · Incidente
+  producción · Mejora interna · Deuda técnica · Arquitectura · Seguridad ·
+  Infraestructura · Comercial / preventa · Regulatorio · Otro.
+- `Cliente origen` (text), `Proyecto origen` (text).
+- `Tipo de trabajo` (select): Nueva funcionalidad · Evolutivo funcional ·
+  Correctivo · Refactor / deuda técnica · Rendimiento / optimización ·
+  Seguridad / hardening · Infraestructura / DevOps · Arquitectura / plataforma ·
+  Mixto.
+- `Commit de referencia` (text; también en la bitácora).
 
-- API de pago por uso imputable a este módulo (p. ej. locuciones,
-  transcripciones, embeddings de este producto);
-- modelos externos facturados por consumo del módulo;
-- otros consumos específicos medibles.
+**EIE:** `EIE bajo`, `EIE central`, `EIE alto`, `EIE materializado`,
+`EIE pendiente`, `Factor K`, `Referencia técnica (€)` (euro).
 
-Las suscripciones planas de herramientas de IA (Claude Code, Claude,
-ChatGPT y equivalentes) son MC2: coste estructural del sistema
-AI-native, no coste directo del módulo. No desaparecerían si ese módulo
-no existiera.
+**Productividad:** `EIE AI-acelerado`, `EIE humano-dominante`,
+`AI-native rate %`, `Humano-dominante %`.
 
-Por tanto:
-- NO las incluyas en Coste IA;
-- NO las prorratees por días, por módulos ni por ningún otro criterio;
-- si aportan contexto, menciónalas en el cuerpo de la ficha indicando
-  expresamente que son MC2 y que no se imputan.
+**Horas:** `Coste hora humano` (euro), `Horas humanas Claude`,
+`Horas humanas fuera`, `Horas humanas totales`, `Base horas`
+(select Registradas/Estimadas).
 
-Si no existe dato fiable de consumo por uso, deja pendiente.
+**MC1:** `Coste humano MC1`, `Coste IA`, `Otros MC1`, `MC1 total` (euro).
 
-### Otros MC1
+**Ratio:** `Ratio compresión`.
 
-Costes directos que desaparecerían si ese trabajo/cliente/módulo
-no existiera.
+**Reutilización:** `Reutilizable` (checkbox, heredado), `Reutilización`
+(select No/Parcial/Sí), `Reutilización demostrada` (checkbox),
+`% reutilizable estimado`, `EIE creación reutilizable`, `EIE trabajo específico`,
+`EIE evitado por reutilización`.
 
-Ejemplos:
-- API específica;
-- servicio externo específico;
-- infraestructura dedicada durante el setup;
-- proveedor externo directamente atribuible.
+**Estado / confianza / fecha:** `Estado` (select), `Confianza` (select
+Baja/Media/Alta), `Confianza MC1` (select Baja/Media/Alta),
+`Fecha valoración` (date).
 
-No incluyas gastos generales compartidos.
-
-### MC1 total
-
-Cuando exista evidencia suficiente:
-
-MC1 total =
-Coste humano MC1
-+ Coste IA
-+ Otros MC1
-
-No calcules un MC1 ficticio si faltan datos materiales.
-
-## Ratio de compresión
-
-Cuando existan horas humanas reales suficientemente fiables calcula:
-
-Ratio de compresión =
-EIE central / horas humanas reales totales
-
-Ejemplo:
-146 EIE / 18 horas humanas = 8,1x
-
-Solo con alcances homogéneos: calcula el ratio únicamente cuando las
-horas sean REGISTRADAS (reales y fiables) y cubran el MISMO alcance
-completo que el EIE. Con horas parciales o de una subtarea, numerador y
-denominador miden alcances distintos: deja el ratio vacío, no lo publiques.
-
-No calcules este ratio si las horas humanas son una estimación sin base
-suficiente.
-
-Guardarraíl: un ratio muy por encima de la banda observada del portfolio
-(~5–13x) indica casi siempre alcances distintos entre EIE y horas. No lo
-publiques; revisa antes de registrar.
-
-Añade también un nivel de confianza para la medición de coste/tiempo:
-- Baja
-- Media
-- Alta
-
-Esto es distinto de la confianza de la estimación EIE si fuese necesario.
-
-## Estados
-
-Usa:
-
-- En desarrollo:
-  todavía existe construcción sustancial pendiente.
-
-- Cierre provisional:
-  desarrollo sustancialmente construido, pero falta validación,
-  puesta en marcha, integración o estabilización relevante.
-
-- Pendiente producción:
-  funcionalmente terminado pero todavía no desplegado.
-
-- En producción:
-  desplegado y dentro del periodo de validación/estabilización.
-
-- Cerrado:
-  producción validada y razonablemente estabilizada.
-
-No marques "Cerrado" únicamente porque el código compile o los tests pasen.
-
-## Reglas de prudencia
-
-- No uses horas reales para calcular EIE.
-- No reduzcas EIE porque Claude haya trabajado rápido.
-- No aumentes EIE porque Claude haya necesitado muchas iteraciones.
-- Líneas de código y número de commits son evidencia auxiliar, no fórmula.
-- Más código no significa más valor.
-- Código innecesario no genera EIE.
-- Retrabajo debido a errores propios no genera automáticamente EIE
-  productivo adicional.
-- Bugs creados por el propio desarrollo no se contabilizan como nueva
-  productividad.
-- Reutilización real debe reducir el esfuerzo convencional cuando
-  razonablemente también lo habría reducido en desarrollo convencional.
-- Ante incertidumbre utiliza una estimación prudente.
-- Si falta evidencia, reduce la confianza.
-- No inventes información que no puedas comprobar.
-
-## Responsable
-
-En el campo Responsable registra únicamente a la persona responsable
-del trabajo.
-
-No pongas "Claude" como responsable.
-
-Claude es herramienta de producción y valoración, no responsable laboral.
-
-## Evidencia que debe quedar en la ficha
-
-Además de los campos estructurados de la base, deja en el contenido
-de la ficha:
-
-- descripción funcional;
-- tipo de proyecto (propio o cliente);
-- trabajo materializado;
-- trabajo pendiente;
-- repositorio;
-- rama inspeccionada;
-- commit SHA utilizado como referencia;
-- componentes relevantes inspeccionados;
-- tests disponibles;
-- integraciones;
-- situación de despliegue;
-- justificación resumida del EIE;
-- justificación del Factor K;
-- nivel de confianza;
-- fecha de valoración.
-
-Cuando vuelvas a valorar el mismo módulo, deja constancia del nuevo
-commit SHA y actualiza la misma ficha.
-
-## Trazabilidad: tarea principal y subtareas (bitácora día a día)
-
-Cada ficha es una TAREA PRINCIPAL (el módulo). El trabajo se realiza en
-SUBTAREAS repartidas en varios días o sesiones, y esa evolución debe
-quedar registrada para poder seguir la traza.
-
-Regla, obligatoria en CADA /imputar: la ficha mantiene una BITÁCORA
-append-only. En cada imputación AÑADE una entrada nueva al final de la
-bitácora. NUNCA sobrescribas ni borres entradas anteriores.
-
-- Los campos estructurados (EIE central, estado, MC1…) reflejan el TOTAL
-  actual del módulo.
-- La bitácora refleja el AVANCE día a día: qué subtareas se hicieron y
-  cuándo.
-
-Cada entrada de bitácora incluye, como mínimo:
-
-- Fecha (YYYY-MM-DD).
-- Subtareas / trabajo concreto de esa sesión (lista breve y específica).
-- Commit(s) SHA de referencia y rama.
-- EIE materializado y EIE central en ese momento (para ver el avance).
-- Estado en ese momento.
-
-Agrupa al menos por día: si en un mismo día hubo varias sesiones, puedes
-juntarlas en una sola entrada con varias subtareas o poner varias
-entradas fechadas, pero nunca menos de una entrada por día con trabajo
-imputado.
-
-Sigue existiendo UNA sola ficha por módulo: no dupliques fichas por
-sesión. Las sesiones son entradas de la bitácora, no fichas nuevas.
-
-## Campos de productividad y MC1 en Notion
-
-Antes de usar los nuevos campos:
-1. inspecciona el esquema actual de la base;
-2. si tienes permisos para modificarla, añade los campos que falten;
-3. no elimines campos existentes.
-
-Campos nuevos deseados:
-
-- Tipo proyecto
-- EIE AI-acelerado
-- EIE humano-dominante
-- AI-native rate %
-- Humano-dominante %
-- Coste hora humano
-- Horas humanas Claude
-- Horas humanas fuera
-- Coste humano MC1
-- Coste IA
-- Otros MC1
-- MC1 total
-- Ratio compresión
-- Confianza MC1
-- Reutilización
-- Reutilización demostrada
-- % reutilizable estimado
-- EIE creación reutilizable
-- EIE trabajo específico
-- EIE evitado por reutilización
-
-Tipos:
-- Tipo proyecto: select Propio / Cliente
-- EIE: número
-- porcentajes: número
-- costes: número/euro
-- horas: número
-- ratio: número
-- Confianza MC1: select Baja / Media / Alta
-- Reutilización: select No / Parcial / Sí
-- Reutilización demostrada: select Sí / No (o checkbox)
-- % reutilizable estimado: número
-- EIE creación reutilizable / EIE trabajo específico / EIE evitado por reutilización: número
-
-Nota: la base ya tiene un checkbox "Reutilizable"; el select "Reutilización"
-(No/Parcial/Sí) lo complementa con la categoría. No elimines el checkbox.
-
-Además, dentro del contenido de cada ficha deja un pequeño bloque:
+Dentro del contenido de cada ficha deja este bloque:
 
 ```
-## Productividad AI-native
+## Identificación
+Origen del trabajo:
+Cliente origen / Proyecto origen:
+Tipo de trabajo:
+Commit de referencia:
 
+## Productividad AI-native
 EIE total:
 EIE AI-acelerado:
 EIE humano-dominante:
@@ -702,10 +466,11 @@ AI-native rate:
 Humano-dominante:
 
 ## MC1
-
 Coste hora:
 Horas humanas Claude:
 Horas humanas fuera:
+Horas humanas totales:
+Base horas:
 Coste humano:
 Coste IA:
 Otros MC1:
@@ -714,7 +479,6 @@ Ratio de compresión:
 Confianza MC1:
 
 ## Reutilización
-
 Reutilización: No / Parcial / Sí
 Reutilización demostrada: Sí / No
 % reutilizable estimado:
@@ -730,78 +494,5 @@ Justificación:
 | YYYY-MM-DD | … | abc1234 (rama) | 40 → 90 | En desarrollo |
 ```
 
-En cada /imputar añade una fila nueva a la bitácora; no toques las
-filas anteriores.
-
-## Trabajos empezados antes de este sistema
-
-Si el trabajo ya estaba iniciado cuando comenzó el sistema EIE:
-
-- haz valoración retrospectiva;
-- no inventes una estimación inicial que nunca existió;
-- utiliza "Cierre provisional" cuando proceda;
-- separa materializado y pendiente.
-
-## Cierre
-
-Si el argumento contiene "cerrar" o el desarrollador solicita cierre:
-
-1. Comprueba que el alcance está terminado.
-2. Comprueba situación de producción.
-3. Comprueba validación y estabilización disponibles.
-4. Sustituye estimaciones pendientes por evidencia real cuando sea posible.
-5. Recalcula EIE final y K si procede.
-6. Si existe trabajo humano externo relevante que no pueda obtenerse
-   automáticamente, haz la única pregunta breve del MC1 (ver "Horas
-   humanas fuera de Claude").
-7. Completa MC1 total y ratio de compresión solo si hay base suficiente.
-8. Marca "Cerrado" solo si la evidencia lo permite.
-
-## Flujo del desarrollador
-
-El desarrollador debe seguir haciendo exactamente lo mismo:
-
-/imputar [una frase sobre lo realizado]
-
-NO debe rellenar formularios.
-
-NO debe calcular EIE.
-
-NO debe calcular porcentajes.
-
-NO debe calcular MC1.
-
-NO debe introducir horas salvo trabajo externo que Claude no pueda
-observar y únicamente cuando sea necesario al cierre.
-
-Claude debe obtener automáticamente todo lo posible de la evidencia
-del proyecto y de las sesiones.
-
-## Respuesta al desarrollador
-
-Mantén la respuesta corta.
-
-Formato:
-
-Imputación actualizada ✓
-Módulo: [nombre]
-Estado: [estado]
-EIE central: [n]
-AI-native: [n] %
-MC1 registrado: [importe o "pendiente de datos suficientes"]
-Notion: [url]
-
-Añade como máximo una línea indicando qué queda pendiente.
-
-No muestres los cálculos completos salvo que se soliciten.
-
-## Regla crítica
-
-No confundir nunca:
-
-1. EIE convencional equivalente.
-2. Tiempo humano real.
-3. Tiempo de ejecución de Claude/agentes.
-4. Coste económico MC1.
-
-Son cuatro magnitudes distintas.
+En cada `/imputar` añade una fila nueva a la bitácora; no toques las filas
+anteriores.
