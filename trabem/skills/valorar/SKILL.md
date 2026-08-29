@@ -346,6 +346,14 @@ funcional = PF × €/PF de la banda`. No es tarifa; es contraste. PDR externo
 (peer group .NET UE): P25 6,3 · P50 7,9 · P75 11,2 h/PF, para comprobar orden
 de magnitud del esfuerzo convencional.
 
+**Modelo de tres capas (terminología unificada en `imputar`/`valorar`/`presupuestar`):**
+**coste** = MC1 (lo que nos cuesta producir) · **precio a cliente** = por capas
+`(EIE humano-dom × 70) + (EIE AI-acel × 30)` (capa base que se cobra) ·
+**referencia de mercado** = funcional `PF × €/PF` (lo que cobraría un proveedor
+convencional / hospitalario). El **precio recomendado** final se elige en el
+corredor entre el coste (suelo) y el mercado (techo) con el Value Case. Suelo <
+precio por capas < mercado.
+
 **Dónde se registra (dos capas):**
 
 1. **PF reales y análisis IFPUG → Registro EIE**, en la ficha del módulo:

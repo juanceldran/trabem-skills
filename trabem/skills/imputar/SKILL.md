@@ -98,8 +98,8 @@ Imputa de una vez todo lo trabajado hoy, repartido entre módulos.
    como en §2.
 4. **Reparte la jornada** entre módulos **en proporción al EIE del incremento**
    → `Horas humanas` por módulo. `Base horas: Registradas`.
-5. **Cuadro del día**: módulos · EIE producido hoy · jornada (h) · € interno
-   (por capas: EIE humano-dom×70 + EIE AI-acel×30) · **múltiplo del día = EIE producido ÷ jornada**.
+5. **Cuadro del día**: módulos · EIE producido hoy · jornada (h) · precio por capas
+   (EIE humano-dom×70 + EIE AI-acel×30) · **múltiplo del día = EIE producido ÷ jornada**.
 
 **Regla del múltiplo:** solo cuenta trabajo de HOY. Una valoración retrospectiva
 de un módulo de días anteriores va como imputación de módulo aparte y **no**
@@ -131,7 +131,7 @@ bitácora con una última fila. Sin re-valorar todo desde cero.
   1,10–1,20 especializado · >1,20 excepcional y justificado. Ante duda, el
   inferior. No cuentes dos veces la misma dificultad (si ya subió el EIE, no
   la repitas vía K).
-- **Referencia técnica (por capas · constantes 2026) = (EIE humano-dominante × 70 €) + (EIE AI-acelerado × 30 €)**. Es referencia interna, no precio al cliente. Sustituye a la antigua `EIE × 60 € × K`; el `Factor K` se conserva como justificación de la banda de EIE, ya no multiplica la referencia.
+- **Precio a cliente (por capas · constantes 2026) = (EIE humano-dominante × 70 €) + (EIE AI-acelerado × 30 €)** → campo `Precio a cliente (por capas) (€)`. Es el **precio base** que se cobra al cliente por el módulo: el modelo por capas ES el motor de precio (criterio humano a 70, producción del agente a 30). Sustituye a la antigua `EIE × 60 € × K`; el `Factor K` se conserva como justificación de la banda de EIE, ya no multiplica. **Modelo de tres capas:** coste (MC1) < **precio a cliente (por capas)** < referencia de mercado (funcional PF, eso es `/valorar`). El precio comercial final puede subir hacia el mercado vía Value Case (`/valorar`).
 - **Horas**: `Horas humanas Claude` + `Horas humanas fuera` = `totales`.
   `Base horas` = `Registradas` (las aporta la persona) o `Estimadas`
   (reconstruidas). No presentes estimadas como registradas.
@@ -194,7 +194,7 @@ No leas estos ficheros por rutina — cuestan contexto:
 **Módulo:** · **Responsable:** · **Tipo/Origen:** · **Estado:**
 **EIE materializado / central:** · **Horas humanas:** · **Base horas:**
 **MC1:** · **Ratio compresión:** (solo si válido) · **Reutilización:**
-**Referencia técnica:** · **Confianza:** · **Ficha actualizada:** sí/no
+**Precio a cliente (por capas):** · **Confianza:** · **Ficha actualizada:** sí/no
 
 En modo diario, añade el cuadro del día y el múltiplo. Nada más: no es una
 propuesta comercial y no repite doctrina.

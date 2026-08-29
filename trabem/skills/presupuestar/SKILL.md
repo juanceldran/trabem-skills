@@ -119,12 +119,14 @@ que `/valorar`. No inflar PF por framework, seguridad, idiomas, IA o plazo.)
 Estimar `EIE bajo/central/alto previsto`. Aplicar descuento por reutilización.
 Estimar también el reparto en dos capas: `EIE AI-acelerado previsto` +
 `EIE humano-dominante previsto` (suman el EIE central previsto). Registrar
-`Factor K previsto`. Calcular la referencia **por capas** (constantes 2026,
-unificadas en `presupuestar`/`valorar`/`imputar`: humano 70 €, agente 30 €):
-`Referencia EIE prevista = (EIE humano-dominante previsto × 70 €) + (EIE AI-acelerado previsto × 30 €)`.
+`Factor K previsto`. Calcular el **precio a cliente base previsto** por capas
+(constantes 2026, unificadas en `presupuestar`/`valorar`/`imputar`: humano 70 €,
+agente 30 €):
+`Precio a cliente previsto (por capas) = (EIE humano-dominante previsto × 70 €) + (EIE AI-acelerado previsto × 30 €)`.
 Sustituye a la antigua `EIE × 60 € × K`; el `Factor K` se conserva como
-justificación de la banda de EIE, ya no multiplica. Es contraste técnico
-interno, no el precio final.
+justificación de la banda de EIE, ya no multiplica. Es el **precio base** (capa 2
+del modelo de tres capas: coste MC1 < precio por capas < referencia funcional de
+mercado); el precio final se cierra en el corredor con el Value Case.
 
 ---
 
