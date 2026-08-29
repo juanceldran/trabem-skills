@@ -99,7 +99,7 @@ Imputa de una vez todo lo trabajado hoy, repartido entre módulos.
 4. **Reparte la jornada** entre módulos **en proporción al EIE del incremento**
    → `Horas humanas` por módulo. `Base horas: Registradas`.
 5. **Cuadro del día**: módulos · EIE producido hoy · jornada (h) · € interno
-   (EIE×60×K) · **múltiplo del día = EIE producido ÷ jornada**.
+   (por capas: EIE humano-dom×70 + EIE AI-acel×30) · **múltiplo del día = EIE producido ÷ jornada**.
 
 **Regla del múltiplo:** solo cuenta trabajo de HOY. Una valoración retrospectiva
 de un módulo de días anteriores va como imputación de módulo aparte y **no**
@@ -131,12 +131,11 @@ bitácora con una última fila. Sin re-valorar todo desde cero.
   1,10–1,20 especializado · >1,20 excepcional y justificado. Ante duda, el
   inferior. No cuentes dos veces la misma dificultad (si ya subió el EIE, no
   la repitas vía K).
-- **Referencia técnica = EIE central × 60 € × Factor K**. Es referencia interna,
-  no precio al cliente.
+- **Referencia técnica (por capas · constantes 2026) = (EIE humano-dominante × 70 €) + (EIE AI-acelerado × 30 €)**. Es referencia interna, no precio al cliente. Sustituye a la antigua `EIE × 60 € × K`; el `Factor K` se conserva como justificación de la banda de EIE, ya no multiplica la referencia.
 - **Horas**: `Horas humanas Claude` + `Horas humanas fuera` = `totales`.
   `Base horas` = `Registradas` (las aporta la persona) o `Estimadas`
   (reconstruidas). No presentes estimadas como registradas.
-- **MC1**: `Coste hora humano` 30 €/h → `Coste humano MC1 = horas × 30`.
+- **MC1**: `Coste hora humano` por rol (constantes 2026) — senior (María/Juan/Aurelio) **70 €/h**, agente **30 €/h** → `Coste humano MC1 = Σ(horas × tarifa del rol)`; con solo horas senior, `horas × 70`.
   Más `Coste IA`, `Otros MC1`, `MC1 total`. La **suscripción plana de Claude
   Code es MC2** y no se imputa.
 - **Ratio compresión = EIE / horas totales**, solo si las horas son
