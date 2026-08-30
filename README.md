@@ -6,8 +6,24 @@ Skills compartidas de Claude Code para el equipo TRABEM · Silvermind.
 ## Qué incluye
 
 - **`/imputar`** — registra y actualiza en Notion la valoración EIE del trabajo
-  AI-native del proyecto actual (EIE, productividad AI-native, MC1), en la base
-  «📊 Registro EIE · Ingeniería AI-native TRABEM».
+  AI-native del proyecto actual (EIE, productividad AI-native, valor técnico
+  interno 70/30, MC1), en la base «📊 Registro EIE · Ingeniería AI-native TRABEM».
+- **`/valorar`** — cierre ex post: PF válidos (IFPUG + puerta de calidad),
+  referencia de construcción PF TRABEM, benchmark externo ISBSG, contraste con el
+  presupuesto y aprendizaje del €/PF TRABEM.
+- **`/presupuestar`** — estimación ex ante del **setup**: alcance, PF previstos,
+  EIE/MC1 internos, referencia de construcción PF TRABEM, benchmark y forma de
+  cobro. Baseline inmutable.
+
+## Doctrina (vigente 2026-08-30)
+
+- **PF = unidad funcional y comercial.** `Referencia construcción = PF válidos × PF_TRABEM_EUR`.
+- **HH / EIE (70/30) = instrumentos internos** de productividad y calibración, **no** precio a cliente.
+- **ISBSG = benchmark externo** (contraste), nunca tarifa TRABEM.
+- Se valora el **setup / construcción** (PF). 
+- Las constantes (90 €/PF, 70/30, bandas ISBSG, incentivo) viven **solo** en
+  [`trabem/constants/`](trabem/constants/) — fuente única, versionada. Tests:
+  `cd trabem && node --test`.
 
 ## Instalación (una vez por máquina)
 

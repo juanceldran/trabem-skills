@@ -31,7 +31,19 @@ campos existentes).
 - `Commit de referencia` (text; también en la bitácora).
 
 **EIE:** `EIE bajo`, `EIE central`, `EIE alto`, `EIE materializado`,
-`EIE pendiente`, `Factor K`, `Referencia técnica (€)` (euro).
+`EIE pendiente`, `Factor K`.
+
+**Valoración interna 70/30** (instrumentación, **no** precio a cliente; lo escribe
+`/imputar`): `Valor técnico interno 70/30 (€)`, `€/PF observado interno` (cuando
+haya PF). Tarifas en `constants/trabem.constants.json`.
+
+**Comercial / funcional** (lo decide `/valorar`, no `/imputar`): `PF válidos`,
+`Referencia construcción PF TRABEM (€)` (= PF válidos × PF_TRABEM_EUR),
+`Benchmark externo ISBSG (€)` (contraste), `Precio final cliente (€)`.
+
+**Histórico (legacy — no reescribir):** `Referencia técnica (€)`,
+`Precio a cliente (por capas) (€)` — campos antiguos conservados para leer fichas
+previas; los registros nuevos usan los campos de arriba.
 
 **Productividad:** `EIE AI-acelerado`, `EIE humano-dominante`,
 `AI-native rate %`, `Humano-dominante %`.

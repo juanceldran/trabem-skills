@@ -98,8 +98,9 @@ Imputa de una vez todo lo trabajado hoy, repartido entre módulos.
    como en §2.
 4. **Reparte la jornada** entre módulos **en proporción al EIE del incremento**
    → `Horas humanas` por módulo. `Base horas: Registradas`.
-5. **Cuadro del día**: módulos · EIE producido hoy · jornada (h) · precio por capas
-   (EIE humano-dom×70 + EIE AI-acel×30) · **múltiplo del día = EIE producido ÷ jornada**.
+5. **Cuadro del día**: módulos · EIE producido hoy · jornada (h) · valor técnico
+   interno 70/30 (instrumentación, **no** precio a cliente; tarifas en
+   `constants/trabem.constants.json`) · **múltiplo del día = EIE producido ÷ jornada**.
 
 **Regla del múltiplo:** solo cuenta trabajo de HOY. Una valoración retrospectiva
 de un módulo de días anteriores va como imputación de módulo aparte y **no**
@@ -131,11 +132,11 @@ bitácora con una última fila. Sin re-valorar todo desde cero.
   1,10–1,20 especializado · >1,20 excepcional y justificado. Ante duda, el
   inferior. No cuentes dos veces la misma dificultad (si ya subió el EIE, no
   la repitas vía K).
-- **Precio a cliente (por capas · constantes 2026) = (EIE humano-dominante × 70 €) + (EIE AI-acelerado × 30 €)** → campo `Precio a cliente (por capas) (€)`. Es el **precio base** que se cobra al cliente por el módulo: el modelo por capas ES el motor de precio (criterio humano a 70, producción del agente a 30). Sustituye a la antigua `EIE × 60 € × K`; el `Factor K` se conserva como justificación de la banda de EIE, ya no multiplica. **Modelo de tres capas:** coste (MC1) < **precio a cliente (por capas)** < referencia de mercado (funcional PF, eso es `/valorar`). El precio comercial final puede subir hacia el mercado vía Value Case (`/valorar`).
+- **Valor técnico interno 70/30 = (EIE humano-dominante × tarifa humano) + (EIE AI-acelerado × tarifa agente)** → campo `Valor técnico interno 70/30 (€)`. Es **instrumentación interna** (productividad, coste técnico, calibración del PF TRABEM), **NO el precio a cliente**. Las tarifas viven solo en `constants/trabem.constants.json` (`instrumentacion_interna`); no las reescribas aquí. Sustituye a la antigua fórmula por-EIE con Factor K y a la etiqueta «Precio a cliente (por capas)» (retiradas; ver `legacy` en el JSON). El `Factor K` justifica la banda de EIE, **no multiplica**. El **precio comercial** es otra capa (`Referencia construcción = PF válidos × PF_TRABEM_EUR`) y se decide en `/valorar`, no aquí. Si aún no hay conteo PF válido, **no lo inventes**: déjalo pendiente para `/valorar`.
 - **Horas**: `Horas humanas Claude` + `Horas humanas fuera` = `totales`.
   `Base horas` = `Registradas` (las aporta la persona) o `Estimadas`
   (reconstruidas). No presentes estimadas como registradas.
-- **MC1**: `Coste hora humano` por rol (constantes 2026) — senior (María/Juan/Aurelio) **70 €/h**, agente **30 €/h** → `Coste humano MC1 = Σ(horas × tarifa del rol)`; con solo horas senior, `horas × 70`.
+- **MC1**: `Coste hora humano` por rol (valores en `constants/trabem.constants.json` → `mc1`: senior María/Juan/Aurelio, agente) → `Coste humano MC1 = Σ(horas × tarifa del rol)`.
   Más `Coste IA`, `Otros MC1`, `MC1 total`. La **suscripción plana de Claude
   Code es MC2** y no se imputa.
 - **Ratio compresión = EIE / horas totales**, solo si las horas son
@@ -186,6 +187,10 @@ No leas estos ficheros por rutina — cuestan contexto:
 - `reference/doctrina.md` → desarrollo largo de la doctrina (EIE, MC1 vs MC2,
   reutilización, EIE evitado, calidad del dato). **Léelo solo ante una duda de
   criterio** que §5 no resuelva, o si alguien cuestiona una valoración.
+- `constants/trabem.constants.json` (raíz del plugin `trabem`) → **única fuente**
+  de las constantes numéricas (tarifas internas 70/30, MC1, PF_TRABEM_EUR, bandas
+  ISBSG, incentivo). Es pequeño; cárgalo cuando necesites un valor. **No** reescribas
+  esos números en la ficha ni en el resumen.
 
 ---
 
@@ -194,7 +199,7 @@ No leas estos ficheros por rutina — cuestan contexto:
 **Módulo:** · **Responsable:** · **Tipo/Origen:** · **Estado:**
 **EIE materializado / central:** · **Horas humanas:** · **Base horas:**
 **MC1:** · **Ratio compresión:** (solo si válido) · **Reutilización:**
-**Precio a cliente (por capas):** · **Confianza:** · **Ficha actualizada:** sí/no
+**Valor técnico interno 70/30:** · **Confianza:** · **Ficha actualizada:** sí/no
 
 En modo diario, añade el cuadro del día y el múltiplo. Nada más: no es una
 propuesta comercial y no repite doctrina.
