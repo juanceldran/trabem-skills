@@ -72,6 +72,15 @@
       "capacidad_mensual_ref_h": 140,
       "formula_objetivo_ajustado": "banda × (capacidad_mensual_ref_h − capacidad_neutralizada_h) / capacidad_mensual_ref_h",
       "nota": "capacidad_mensual_ref_h es orientativa/configurable (~20 jornadas de 7 h). El corrector no gana PF por el correctivo ajeno, pero tampoco se le exige el objetivo completo."
+    },
+    "unidades_de_desempeno": {
+      "principio": "El incentivo se mide POR UNIDAD DE DESEMPEÑO, SEPARADAS; NO se suman entre sí. Solo la banda Desarrollo (programación de software) está calibrada; las demás (Diseño de sistemas, Estrategia, Marketing, Branding, Infra) van por su lado y se calibran poco a poco con el histórico.",
+      "Desarrollo": { "bandas_pf": { "suelo": 160, "normal": 240, "alto": 320 }, "estado": "calibrada" },
+      "Diseño de sistemas": { "estado": "a calibrar" },
+      "Estrategia": { "estado": "a calibrar" },
+      "Marketing": { "estado": "a calibrar" },
+      "Branding": { "estado": "a calibrar" },
+      "Infra": { "estado": "a calibrar" }
     }
   },
 

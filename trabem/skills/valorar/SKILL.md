@@ -305,6 +305,13 @@ que mete caja** (cobro; sanitarios vía proxy ~1 %). Un cliente **estratégico s
 caja** (p.ej. DWFW) se mide pero **no computa** para el incentivo hasta que
 cobre, dentro de su tope. Registra `PF incentivables`.
 
+**Unidades de desempeño (`incentivo.unidades_de_desempeno`):** clasifica cada
+trabajo en su unidad (`Desarrollo` · `Diseño de sistemas` · `Estrategia` ·
+`Marketing` · `Branding` · `Infra`). El incentivo se mide **por unidad,
+SEPARADAS** — no se suman entre sí. Solo la banda **Desarrollo** (160/240/320)
+está calibrada; las demás van por su lado y se calibran poco a poco con el
+histórico. Registra `Unidad de desempeño`.
+
 ---
 
 # 24. CAMPOS DE NOTION PARA `/valorar`
