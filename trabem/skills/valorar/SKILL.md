@@ -104,6 +104,13 @@ testing **no genera PF adicionales**: hace que los PF sean **válidos**. Calcula
 suficiente no cuentan como válidos hasta que la pasen. `PF válidos` es la base
 de la referencia de construcción (§11) y del incentivo (§23).
 
+**Diseño de sistema que hace ESCALAR la empresa → PF** (aunque no sea software
+IFPUG-contable: skills/método, pipeline de marketing/contenido, infra/gemelo
+digital, doctrina). Puerta de calidad = validación / puesta en marcha del
+sistema. Cuando IFPUG no aplica, reconocimiento ≈ **0,5 × EIE central**
+(heurístico, calibrable); ver `pf_diseno_sistema_escalador`. No aplica a
+correctivos (0 PF) ni a operación/contenido repetitivo sin diseño de sistema.
+
 ---
 
 # 7. CORRECTIVOS Y RETRABAJO
