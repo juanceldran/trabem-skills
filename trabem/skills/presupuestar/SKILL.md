@@ -162,7 +162,9 @@ Unidad comercial principal = **PF TRABEM**. En cuanto haya `PF previstos`:
 `PF_TRABEM_EUR` vigente en `constants/trabem.constants.json` → `comercial`
 (provisional, en calibración sep–dic 2026). Es la referencia de precio de
 **construcción / setup**. **No** apliques todavía escalones automáticos
-100/110/120 (futura decisión de negocio, no regla vigente).
+100/110/120 (futura decisión de negocio, no regla vigente). El PF es
+**aspiracional**: el precio realizable por cliente puede ser menor — presenta
+ambos y mantén la **tensión**, no colapses el PF en lo que se puede cobrar.
 
 ---
 

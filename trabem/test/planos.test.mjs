@@ -14,6 +14,8 @@ import {
   pfPorHH,
   costeRealPorPF,
   valorTecnicoPorPF,
+  gradoRealizacionPF,
+  tensionPF,
 } from '../constants/trabem.constants.mjs';
 
 // Plano 3 — valor comercial: ejemplos de la calibración.
@@ -77,4 +79,18 @@ test('incentivo = PF netos × 1,25', () => {
   assert.equal(incentivoDesarrollo(85), 106.25);
   assert.equal(pfNetos(70, 0), 70);
   assert.equal(pfNetos(70, 6), 64);
+});
+
+// Tensión PF aspiracional ↔ precio realizable por cliente.
+test('grado de realización y tensión: PF aspiracional vs lo cobrado', () => {
+  // Cobrar el PF aspiracional completo (70 × 90 = 6.300): realización 1, tensión 0.
+  assert.equal(gradoRealizacionPF(6300, 70), 1);
+  assert.equal(tensionPF(6300, 70), 0);
+  // Cobrar solo 3.600 € por 70 PF → por debajo del aspiracional.
+  const g = gradoRealizacionPF(3600, 70);
+  assert.ok(Math.abs(g - 3600 / 70 / 90) < 1e-9);
+  assert.ok(g < 1 && g > 0);
+  assert.ok(Math.abs(tensionPF(3600, 70) - (1 - g)) < 1e-9);
+  // Guarda de división por cero.
+  assert.equal(gradoRealizacionPF(1000, 0), null);
 });

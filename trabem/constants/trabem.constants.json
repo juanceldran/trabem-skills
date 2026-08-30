@@ -7,7 +7,7 @@
     "descripcion": "REGLA FUNDAMENTAL: no reutilizar una misma cifra para conceptos distintos. TRABEM tiene CUATRO planos económicos separados, con nombres inequívocos.",
     "1_coste_humano_real": "HH reales × coste/hora REAL del trabajador (por persona; vive en Notion, no en el repo). Es COSTE para TRABEM. No es precio, no es EIE.",
     "2_valoracion_tecnica_interna_eie": "(EIE humano × 70) + (EIE agente/IA × 30). Capacidad técnica / productividad / apalancamiento AI-native. No es nómina, no es coste del agente, no es precio a cliente.",
-    "3_valor_comercial_pf": "PF válidos × PF_TRABEM_EUR (90 €). Referencia comercial de construcción. No es coste, no es EIE, no es incentivo, no es SaaS/consumos.",
+    "3_valor_comercial_pf": "PF válidos × PF_TRABEM_EUR (90 €). Referencia comercial de construcción, ASPIRACIONAL. El precio realizable por cliente puede ser menor: mantener la tensión, no colapsar. No es coste, no es EIE, no es incentivo, no es SaaS/consumos.",
     "4_incentivo_desarrollo": "PF netos × 1,25 €. Incentivo del desarrollador. PF netos = PF válidos − retrabajo imputable.",
     "benchmark_externo": "ISBSG (925/775/590/475 €/PF): SOLO referencia de mercado / contraste. NO es el precio TRABEM.",
     "no_confundir": "90 €/PF = valor comercial · 1,25 €/PF = incentivo empleado · 70/30 = valoración técnica interna · coste/hora real = coste laboral. Cuatro planos distintos."
@@ -22,6 +22,8 @@
     "vigencia_desde": "2026-09-01",
     "vigencia_hasta": "2026-12-31",
     "nota": "Precio provisional en calibración (sep-dic 2026). NO crear todavía escalones automáticos 100/110/120: son futuras decisiones de negocio, no reglas vigentes.",
+    "caracter": "ASPIRACIONAL — referencia de construcción, no necesariamente el precio que se cobra.",
+    "tension_con_precio_realizable": "El precio REAL cobrado a cada cliente ('lo que se puede cobrar') suele ser menor que PF válidos × PF_TRABEM_EUR. Se mantiene DELIBERADAMENTE la tensión entre el PF aspiracional y el precio realizable por cliente; NO se colapsa uno en el otro. La distancia se mide con el grado de realización = (precio real / PF válidos) ÷ PF_TRABEM_EUR.",
     "escalones_futuros_no_vigentes": [100, 110, 120]
   },
 
