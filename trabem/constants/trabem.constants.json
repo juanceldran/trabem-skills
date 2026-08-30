@@ -1,0 +1,74 @@
+{
+  "$schema_version": "1.0.0",
+  "doctrina_vigente_desde": "2026-08-30",
+  "nota": "FUENTE ÚNICA de constantes del Método TRABEM. NO repetir estos literales (90, 70, 30, tablas ISBSG, 1,25, bandas) en las skills ni en la doctrina: referenciarlos por NOMBRE y cargar este fichero cuando se necesite un valor. Los registros históricos de Notion conservan su semántica antigua (ver 'legacy'); no se reescriben.",
+
+  "comercial": {
+    "descripcion": "Unidad comercial principal para módulos y desarrollos funcionales de TRABEM en salud. Referencia de construcción = PF válidos × PF_TRABEM_EUR.",
+    "PF_TRABEM_EUR": 90,
+    "moneda": "EUR",
+    "unidad": "€/PF",
+    "estado": "calibracion",
+    "vigencia_desde": "2026-09-01",
+    "vigencia_hasta": "2026-12-31",
+    "nota": "Precio provisional en calibración (sep-dic 2026). NO crear todavía escalones automáticos 100/110/120: son futuras decisiones de negocio, no reglas vigentes.",
+    "escalones_futuros_no_vigentes": [100, 110, 120]
+  },
+
+  "instrumentacion_interna": {
+    "descripcion": "70/30 = INSTRUMENTACIÓN INTERNA (productividad, análisis EIE, coste técnico, calibración del PF TRABEM, comprobar si cobramos bien, previsión vs realidad). NO es 'Precio a cliente por capas' ni precio comercial.",
+    "TARIFA_HUMANO_EUR": 70,
+    "TARIFA_AGENTE_EUR": 30,
+    "unidad": "€/EIE-equivalente",
+    "formula_valor_tecnico_interno": "(EIE_humano_dominante × TARIFA_HUMANO_EUR) + (EIE_AI_acelerado × TARIFA_AGENTE_EUR)",
+    "formula_eur_pf_observado_interno": "valor_tecnico_interno_70_30 / PF_validos"
+  },
+
+  "mc1": {
+    "descripcion": "MC1 = coste directo del trabajo (horas × tarifa de rol). La suscripción plana de Claude Code es MC2 y no se imputa.",
+    "COSTE_HORA_HUMANO_SENIOR_EUR": 70,
+    "COSTE_HORA_AGENTE_EUR": 30,
+    "unidad": "€/h"
+  },
+
+  "benchmark_externo_isbsg": {
+    "descripcion": "BENCHMARK EXTERNO (IFPUG/ISBSG). Contraste de mercado convencional. NUNCA determina automáticamente el precio TRABEM: es referencia externa, no tarifa comercial. P65 provisional, €/PF por banda de PF.",
+    "unidad": "€/PF",
+    "bandas": [
+      { "min": 0, "max": 100, "eur_pf": 925 },
+      { "min": 100, "max": 300, "eur_pf": 775 },
+      { "min": 300, "max": 1000, "eur_pf": 590 },
+      { "min": 1000, "max": 3000, "eur_pf": 475 }
+    ],
+    "pdr_externo_hpf": { "P25": 6.3, "P50": 7.9, "P75": 11.2, "nota": "peer group .NET UE, h/PF, para comprobar orden de magnitud del esfuerzo convencional" }
+  },
+
+  "incentivo": {
+    "descripcion": "SISTEMA DISTINTO del precio comercial. Usa PF pero NO se mezcla con PF_TRABEM_EUR (90 €/PF). Provisional; no crear todavía una skill de incentivos, solo dejar los datos trazables.",
+    "VALOR_PF_EUR": 1.25,
+    "unidad": "€ netos/PF",
+    "formula_pf_netos": "PF_validos − PF_equivalentes_de_retrabajo_imputable",
+    "bandas_mensuales_pf": { "suelo": 160, "normal": 240, "alto": 320 },
+    "nota": "1,25 €/PF (incentivo individual) NO es 90 €/PF (precio comercial de construcción). Son dos cosas completamente distintas."
+  },
+
+  "factor_k": {
+    "descripcion": "Justifica la banda de EIE; NO multiplica el precio.",
+    "estandar": 1.00,
+    "conocimiento_especifico": [1.05, 1.10],
+    "especializado": [1.10, 1.20],
+    "excepcional_min": 1.20
+  },
+
+  "calibracion": {
+    "nicho": "software sanitario de clínicas y hospitales",
+    "nota": "El €/PF TRABEM se calibra para el nicho sanitario. No mezclar automáticamente proyectos de otros sectores en la calibración: pueden mantenerse como contraste metodológico, pero no alimentan el benchmark propio sanitario salvo decisión expresa."
+  },
+
+  "legacy": {
+    "descripcion": "Semántica ANTIGUA conservada solo para LEER registros históricos de Notion. No usar en registros nuevos; no reescribir históricos.",
+    "referencia_tecnica_60_x_K": "Hasta 2026-08: 'Referencia técnica = EIE central × 60 € × Factor K'. Constante 60 €/EIE retirada; el Factor K ya no multiplica precio.",
+    "precio_a_cliente_por_capas": "2026-08-29..30: el cálculo (EIE_humano × 70) + (EIE_AI × 30) se etiquetó 'Precio a cliente (por capas)'. Desde 2026-08-30 ese 70/30 es VALOR TÉCNICO INTERNO (instrumentación), NO precio a cliente. El precio comercial de construcción pasa a PF válidos × PF_TRABEM_EUR.",
+    "campos_notion_conservados": ["Referencia técnica (€)", "Precio a cliente (por capas) (€)"]
+  }
+}

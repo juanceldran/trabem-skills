@@ -1,13 +1,13 @@
 ---
 name: valorar
-description: Valoración EX POST de trabajo ya construido — PF reales (IFPUG), EIE/MC1 reales, contraste contra el presupuesto baseline, desviaciones, accuracy y aprendizaje del modelo TRABEM. NO hace prevaloración (eso es /presupuestar) ni registra producción (eso es /imputar).
+description: Valoración EX POST de trabajo ya construido — PF reales/válidos (IFPUG + puerta de calidad), referencia de construcción PF TRABEM, EIE/MC1 internos, benchmark externo, contraste contra el presupuesto baseline, desviaciones, accuracy y aprendizaje del modelo TRABEM. NO hace prevaloración (eso es /presupuestar) ni registra producción (eso es /imputar).
 argument-hint: "[módulo/proyecto ya construido]"
 disable-model-invocation: true
 ---
 
 # SKILL `/valorar`
 
-## Valoración ex post, PF reales, contraste del presupuesto y aprendizaje del modelo TRABEM
+## Valoración ex post, PF válidos, referencia de construcción TRABEM, contraste del presupuesto y aprendizaje
 
 ### MISIÓN
 
@@ -15,17 +15,17 @@ La skill `/valorar` existe para analizar un trabajo ya materializado y
 determinar:
 
 1. qué se construyó realmente;
-2. qué tamaño funcional real tiene;
-3. qué EIE real/materializado corresponde;
-4. cuánto costó realmente;
-5. qué reutilización real produjo;
-6. qué valor funcional representa;
+2. qué tamaño funcional real y **válido** tiene (IFPUG + puerta de calidad);
+3. qué referencia de construcción PF TRABEM le corresponde;
+4. qué EIE real/materializado y valor técnico interno representa;
+5. cuánto costó realmente;
+6. qué reutilización real produjo;
 7. qué desviaciones existen respecto al presupuesto;
-8. qué debe aprender el sistema para mejorar futuras valoraciones.
+8. qué debe aprender el sistema para mejorar futuras valoraciones y el €/PF TRABEM.
 
 `/valorar` trabaja EX POST. No presupone trabajos futuros. **No incluye modo
 `--prevalorar`**: la valoración ex ante pertenece exclusivamente a
-`/presupuestar`.
+`/presupuestar`. Es el **cierre ex post**.
 
 ### ENTRADA
 
@@ -49,16 +49,21 @@ Fuente de verdad: `📊 Registro EIE`
 comercial `💶 Cómo cobrar trabajos y módulos`
 (https://app.notion.com/p/3c5b83b803fa810ebbc6f63f4a0639b9).
 
+**Constantes** (única fuente, no reescribir literales): `constants/trabem.constants.json`
+del plugin `trabem` — `PF_TRABEM_EUR`, tarifas internas 70/30, bandas ISBSG
+(benchmark externo) e incentivo. Cárgalo para tomar un valor.
+
 ---
 
 # 2. PRESUPUESTO BASELINE
 
 Si existe `/presupuestar`, recuperar SIN MODIFICAR: PF previstos; EIE previsto;
-HH previstas; MC1 previsto; reutilización prevista; precio recomendado; precio
-aceptado; margen esperado; Value Case previsto; forma de cobro.
+HH previstas; MC1 previsto; reutilización prevista; referencia de construcción;
+precio recomendado; precio aceptado; margen esperado; Value Case previsto; forma
+de cobro.
 
 Estos datos son baseline histórico. Nunca reescribirlos con información
-posterior.
+posterior. El baseline de `/presupuestar` es **inmutable** (§27).
 
 ---
 
@@ -80,22 +85,44 @@ componentes si procede.
 
 # 5. PUNTOS FUNCIÓN REALES
 
-Aplicar IFPUG sobre el producto realmente construido (método, pesos y tablas de
-complejidad en el apéndice OPERATIVO). Contar EI, EO, EQ, ILF, EIF reales;
-aplicar DET/FTR/RET. Calcular `PF reales`. Separar cuando proceda `PF nuevos`,
-`PF modificados`, `PF eliminados`, `PF reutilizados`. Registrar
+Aplicar/revisar el conteo IFPUG sobre el producto realmente construido (método,
+pesos y tablas de complejidad en el apéndice OPERATIVO). Contar EI, EO, EQ, ILF,
+EIF reales; aplicar DET/FTR/RET. Calcular `PF total`. Separar cuando proceda
+`PF nuevos`, `PF modificados`, `PF eliminados`, `PF reutilizados`. Registrar
 `Confianza PF real`.
 
 ---
 
-# 6. CORRECTIVOS
+# 6. PUERTA DE CALIDAD → PF VÁLIDOS
+
+Aplicar la **puerta de calidad** (testing, estabilidad, seguridad, etc.). El
+testing **no genera PF adicionales**: hace que los PF sean **válidos**. Calcular
+`PF válidos` = PF entregados que pasan la puerta de calidad. Los PF sin calidad
+suficiente no cuentan como válidos hasta que la pasen. `PF válidos` es la base
+de la referencia de construcción (§11) y del incentivo (§23).
+
+---
+
+# 7. CORRECTIVOS Y RETRABAJO
 
 Correctivo puro: `PF nuevos = 0`. Puede existir EIE, HH y MC1. No convertir bug
 fixing en nueva producción funcional.
 
+Atribución del retrabajo:
+
+- **Correctivo inevitable externo** (fallo de terceros, del entorno): neutral.
+- **Correctivo evitable** generado por una decisión/trabajo previo: se atribuye
+  al **responsable original**, aunque lo corrija otra persona.
+- **Quien realiza la corrección no queda penalizado** por esas horas: son
+  capacidad consumida por correctivo de tercero, no baja de su producción.
+
+Registrar `Retrabajo imputable` y a quién se atribuye. (Sin automatismos
+complejos todavía: estructura preparada y documentada; el modelo de datos crece
+después.)
+
 ---
 
-# 7. EIE REAL
+# 8. EIE REAL
 
 Recuperar de `/imputar`: EIE materializado, central, bajo, alto, K,
 reutilización. Revisar únicamente si hay evidencia nueva que justifique
@@ -103,15 +130,60 @@ corrección. No modificar el EIE automáticamente para hacerlo converger con PF.
 
 ---
 
-# 8. HH Y MC1 REALES
+# 9. HH Y MC1 REALES
 
 Registrar `HH reales`, `Base horas`, `Coste humano real`, `Coste IA real`,
 `Otros MC1 reales`, `MC1 real`. Priorizar horas registradas. No sustituir datos
-reales por reconstrucciones si existen.
+reales por reconstrucciones si existen. (Tarifas de coste hora en
+`constants/trabem.constants.json` → `mc1`; la suscripción de Claude Code es MC2.)
 
 ---
 
-# 9. REUTILIZACIÓN REAL
+# 10. INSTRUMENTACIÓN INTERNA 70/30
+
+Calcular el **valor técnico interno 70/30** real:
+`Valor técnico interno = (EIE humano-dominante × tarifa humano) + (EIE AI-acelerado × tarifa agente)`
+(tarifas en `constants/trabem.constants.json` → `instrumentacion_interna`).
+Con `PF válidos`: `€/PF observado interno = valor técnico interno 70/30 / PF válidos`.
+
+Es **instrumentación interna** (productividad, coste técnico, calibración del PF
+TRABEM, comprobar si estamos cobrando bien): **NO es el precio a cliente**. El
+precio comercial es la referencia de construcción (§11).
+
+---
+
+# 11. REFERENCIA DE CONSTRUCCIÓN PF TRABEM (unidad comercial)
+
+`Referencia construcción TRABEM = PF válidos × PF_TRABEM_EUR`
+
+`PF_TRABEM_EUR` vigente en `constants/trabem.constants.json` → `comercial`.
+Es la referencia de precio de **construcción / setup** (la unidad comercial es
+el PF). No apliques todavía escalones 100/110/120.
+
+---
+
+# 12. BENCHMARK EXTERNO (ISBSG · contraste)
+
+Calcular `Benchmark externo €/PF`, `Percentil`, `Referencia externa funcional`
+(bandas ISBSG en `constants/trabem.constants.json` → `benchmark_externo_isbsg`).
+Es **referencia externa de mercado convencional**: contraste (precio
+convencional, diferencia con nuestra tarifa propia). **Nunca** se convierte en
+precio recomendado ni en tarifa TRABEM.
+
+---
+
+# 13. TRABEM €/PF (aprendizaje del propio €/PF)
+
+Calcular `€/PF presupuestado` (Precio recomendado / PF previstos),
+`€/PF aceptado` (Precio aceptado / PF previstos) y `€/PF real` (Precio real /
+PF válidos). Comparar con `PF_TRABEM_EUR` vigente. Alimentan el histórico
+comercial del segmento para **aprender nuestro €/PF TRABEM** y calibrar la
+constante. Calibración acotada al nicho **sanitario** (`constants…calibracion`);
+otros sectores solo como contraste, salvo decisión expresa.
+
+---
+
+# 14. REUTILIZACIÓN REAL
 
 Registrar `Reutilización real` (No · Parcial · Sí), `% reutilización real`,
 `Reutilización demostrada`, `EIE creación reutilizable`, `EIE específico`,
@@ -119,22 +191,7 @@ Registrar `Reutilización real` (No · Parcial · Sí), `% reutilización real`,
 
 ---
 
-# 10. BENCHMARK EXTERNO
-
-Calcular `Benchmark externo €/PF`, `Percentil`, `Referencia externa funcional`
-(bandas ISBSG en el apéndice OPERATIVO). Es contraste; no es precio automático.
-
----
-
-# 11. TRABEM €/PF REAL
-
-Calcular `€/PF presupuestado` (Precio recomendado / PF previstos),
-`€/PF aceptado` (Precio aceptado / PF previstos) y `€/PF real` (Precio real /
-PF reales). Alimentan el histórico comercial del segmento.
-
----
-
-# 12. PRODUCTIVIDAD
+# 15. PRODUCTIVIDAD
 
 Con HH registradas y homogéneas: `PF / HH` y `EIE / HH`. Calcular `MC1 / PF` y
 `EIE / PF`. Separar productividad funcional, compresión técnica y coste
@@ -142,7 +199,7 @@ unitario funcional.
 
 ---
 
-# 13. DESVIACIONES
+# 16. DESVIACIONES
 
 Comparar previsión vs realidad. Calcular `Desviación PF %`, `Desviación EIE %`,
 `Desviación HH %`, `Desviación MC1 %`, `Desviación precio %`,
@@ -152,7 +209,7 @@ válido.
 
 ---
 
-# 14. ACCURACY DE PRESUPUESTACIÓN
+# 17. ACCURACY DE PRESUPUESTACIÓN
 
 Registrar `Accuracy PF`, `Accuracy EIE`, `Accuracy MC1`, `Accuracy precio`,
 `Accuracy margen`. Puede usarse `Accuracy = 100 − abs(desviación %)` con suelo
@@ -161,7 +218,7 @@ el histórico.
 
 ---
 
-# 15. CAUSAS DE DESVIACIÓN
+# 18. CAUSAS DE DESVIACIÓN
 
 Clasificar `Causa desviación principal`: Cambio de alcance cliente · Requisitos
 ambiguos · Reutilización sobreestimada · Reutilización infraestimada ·
@@ -172,7 +229,7 @@ prevista · Otro. Registrar explicación.
 
 ---
 
-# 16. VALUE CASE REAL
+# 19. VALUE CASE REAL
 
 Con evidencia posterior: `Value Case observado`; comparar con
 `Value Case previsto`; registrar `Desviación Value Case`. No inventar
@@ -180,14 +237,14 @@ resultados económicos no observados.
 
 ---
 
-# 17. MARGEN REAL
+# 20. MARGEN REAL
 
 Calcular cuando proceda: `Margen real = Precio real − MC1 real` y
 `Margen real %`. Comparar con margen esperado. Separar siempre MC1 de MC2.
 
 ---
 
-# 18. APRENDIZAJE DEL MODELO
+# 21. APRENDIZAJE DEL MODELO
 
 Cada cierre alimenta: TRABEM €/PF por segmento; PF/HH; EIE/HH; MC1/PF; EIE/PF;
 margen; accuracy presupuestaria; duración real; reutilización; defectos; Value
@@ -196,7 +253,7 @@ más preciso.
 
 ---
 
-# 19. SEGMENTACIÓN
+# 22. SEGMENTACIÓN
 
 Registrar siempre `Segmento cliente`: Clínica pequeña · Clínica / policlínica ·
 Hospital · Grupo hospitalario · Otro. Permite calcular después P25/P50/P65/P75
@@ -204,7 +261,19 @@ Hospital · Grupo hospitalario · Otro. Permite calcular después P25/P50/P65/P7
 
 ---
 
-# 20. CAMPOS DE NOTION PARA `/valorar`
+# 23. INCENTIVO · SOLO TRAZABILIDAD
+
+El incentivo de desarrollo usa PF, pero es **OTRO sistema** (no se mezcla con la
+capa comercial `PF_TRABEM_EUR`). `/valorar` **no calcula incentivos** todavía;
+solo deja los datos trazables: `PF válidos` (§6), `Retrabajo imputable` (§7) y
+`PF netos = PF válidos − PF equivalentes de retrabajo imputable`. Las constantes
+del incentivo (valor €/PF y bandas mensuales) viven en
+`constants/trabem.constants.json` → `incentivo`. No crear aquí una skill de
+incentivos.
+
+---
+
+# 24. CAMPOS DE NOTION PARA `/valorar`
 
 Añadir o utilizar (agrupados):
 
@@ -216,10 +285,17 @@ anual cliente.
 real.
 
 **PF reales:** EI reales · EO reales · EQ reales · ILF reales · EIF reales · PF
-reales · PF nuevos · PF modificados · PF eliminados · PF reutilizados ·
-Confianza PF real.
+total · PF nuevos · PF modificados · PF eliminados · PF reutilizados · PF válidos
+· Confianza PF real.
 
-**EIE real:** EIE real/materializado · EIE/PF · Factor K real.
+**Calidad / retrabajo:** Puerta de calidad (pasa/no) · Retrabajo imputable ·
+Atribución retrabajo · PF netos.
+
+**EIE real / interno:** EIE real/materializado · EIE/PF · Factor K real · Valor
+técnico interno 70/30 (€) · €/PF observado interno.
+
+**Comercial (construcción):** PF TRABEM €/PF · Referencia construcción PF TRABEM
+(€) · Precio real · Precio final cliente (€).
 
 **Producción:** HH reales · Base horas · PF/HH · EIE/HH.
 
@@ -229,11 +305,11 @@ MC1/PF.
 **Reutilización:** Reutilización real · % reutilización real · Reutilización
 demostrada · EIE creación reutilizable · EIE específico.
 
-**Benchmark:** Benchmark externo €/PF · Percentil benchmark · Referencia
-externa funcional.
+**Benchmark externo:** Benchmark externo ISBSG €/PF · Percentil benchmark ·
+Referencia externa ISBSG (€).
 
-**Comercial real:** Precio real · €/PF presupuestado · €/PF aceptado · €/PF
-real · Margen real € · Margen real %.
+**Comercial contraste:** €/PF presupuestado · €/PF aceptado · €/PF real ·
+Margen real € · Margen real %.
 
 **Value Case:** Value Case previsto · Value Case observado · Desviación Value
 Case.
@@ -248,9 +324,12 @@ Accuracy margen · Accuracy global presupuesto.
 **Diagnóstico:** Causa desviación principal · Explicación desviación ·
 Aprendizaje modelo · Confianza valoración final.
 
+**Histórico (legacy — no reescribir):** Referencia técnica (€) · Precio a cliente
+(por capas) (€).
+
 ---
 
-# 21. ACCURACY GLOBAL
+# 25. ACCURACY GLOBAL
 
 No construir una fórmula sofisticada al principio. Mientras se acumula muestra,
 calcular una media prudente de Accuracy PF, Accuracy MC1, Accuracy precio y
@@ -259,44 +338,50 @@ ponderar variables según evidencia.
 
 ---
 
-# 22. SALIDA OBLIGATORIA
+# 26. SALIDA OBLIGATORIA
 
 **Proyecto:**
 **Presupuesto baseline:**
-**PF previstos / reales:**
+**PF previstos / reales / válidos:**
+**Referencia construcción PF TRABEM (€):**
+**Valor técnico interno 70/30 (€) · €/PF observado interno:**
+**Benchmark externo ISBSG (contraste):**
 **EIE previsto / real:**
 **HH previstas / reales:**
 **MC1 previsto / real:**
 **Precio previsto / real:**
 **Margen previsto / real:**
 **Reutilización prevista / real:**
+**Calidad / retrabajo · PF netos:**
 **Principales desviaciones:**
 **Accuracy:**
 **Causa:**
-**Aprendizaje para `/presupuestar`:**
+**Aprendizaje para `/presupuestar` y el €/PF TRABEM:**
 **Confianza:**
 
 ---
 
-# 23. REGLA DE GOBIERNO
+# 27. REGLA DE GOBIERNO — BASELINE INMUTABLE
 
 Si la valoración real muestra una desviación grande, no modificar
 retrospectivamente `/presupuestar`. Registrar el error. El valor del sistema
 está en acumular «qué creíamos que ocurriría» frente a «qué ocurrió
-realmente».
+realmente». El baseline de `/presupuestar` es inmutable.
 
 ---
 
-# 24. RELACIÓN ENTRE LAS TRES SKILLS
+# 28. RELACIÓN ENTRE LAS TRES SKILLS
 
 - `/presupuestar`: predice qué construiremos, qué tamaño tendrá y qué debemos
-  cobrar.
-- `/imputar`: registra el trabajo, coste y productividad durante la ejecución.
-- `/valorar`: mide qué construimos realmente y calibra el modelo.
+  cobrar (referencia de construcción PF TRABEM).
+- `/imputar`: registra el trabajo, coste y productividad durante la ejecución
+  (EIE, valor técnico interno 70/30, MC1).
+- `/valorar`: mide qué construimos realmente (PF válidos), lo valora
+  comercialmente y calibra el modelo.
 
 ---
 
-# 25. OBJETIVO ORGANIZATIVO
+# 29. OBJETIVO ORGANIZATIVO
 
 La finalidad es que, con suficiente histórico, una persona pueda introducir
 requisitos y obtener una valoración consistente sin depender del criterio
@@ -307,7 +392,7 @@ extraordinaria. El CEO interviene fundamentalmente en excepciones.
 
 ---
 
-# 26. PRINCIPIO FINAL
+# 30. PRINCIPIO FINAL
 
 `/valorar` no existe para justificar retrospectivamente el precio cobrado.
 Existe para descubrir si el presupuesto fue correcto, medir la realidad y hacer
@@ -340,26 +425,28 @@ líneas, commits, dificultad, IA o plazo — eso va a EIE/K/Value Case, no a PF.
 No fragmentar un proceso elemental (microfunciones). No convertir cada tabla en
 ILF. Una integración externa no genera muchos EIF automáticamente.
 
-**Benchmark ISBSG (P65 provisional, €/PF por banda):** <30 y 30–100 PF → 925 ·
-100–300 → 775 · 300–1.000 → 590 · 1.000–3.000 → 475. `Referencia externa
-funcional = PF × €/PF de la banda`. No es tarifa; es contraste. PDR externo
-(peer group .NET UE): P25 6,3 · P50 7,9 · P75 11,2 h/PF, para comprobar orden
-de magnitud del esfuerzo convencional.
+**Benchmark ISBSG:** bandas €/PF y PDR externo en `constants/trabem.constants.json`
+→ `benchmark_externo_isbsg`. `Referencia externa funcional = PF × €/PF de la
+banda`. **No es tarifa; es contraste externo** y no determina el precio TRABEM.
 
-**Modelo de tres capas (terminología unificada en `imputar`/`valorar`/`presupuestar`):**
-**coste** = MC1 (lo que nos cuesta producir) · **precio a cliente** = por capas
-`(EIE humano-dom × 70) + (EIE AI-acel × 30)` (capa base que se cobra) ·
-**referencia de mercado** = funcional `PF × €/PF` (lo que cobraría un proveedor
-convencional / hospitalario). El **precio recomendado** final se elige en el
-corredor entre el coste (suelo) y el mercado (techo) con el Value Case. Suelo <
-precio por capas < mercado.
+**Las magnitudes (no confundir):**
+- **Coste** = MC1 (lo que nos cuesta producir). Suelo.
+- **Precio comercial de construcción** = `PF válidos × PF_TRABEM_EUR` (unidad de
+  venta, la referencia comercial).
+- **Valor técnico interno 70/30** = `(EIE humano × 70) + (EIE AI × 30)`
+  (instrumentación interna, **no** precio a cliente).
+- **Benchmark externo** = ISBSG `PF × €/PF` (contraste de mercado convencional).
+
+El **precio final cliente** (setup) se elige con el Value Case.
 
 **Dónde se registra (dos capas):**
 
-1. **PF reales y análisis IFPUG → Registro EIE**, en la ficha del módulo:
-   campos `PF total`, `PF nuevos`, `PF reutilizados`, `€/PF (P65)`, `Referencia
-   funcional (€)`, `EIE/PF`, `Confianza PF`, y el bloque auditable `##
-   Valoración /valorar (IFPUG)` con la tabla de funciones.
+1. **PF reales/válidos y análisis IFPUG → Registro EIE**, en la ficha del módulo:
+   campos `PF total`, `PF nuevos`, `PF reutilizados`, `PF válidos`, `PF TRABEM
+   €/PF`, `Referencia construcción PF TRABEM (€)`, `Valor técnico interno 70/30
+   (€)`, `€/PF observado interno`, `Benchmark externo ISBSG (€)`, `EIE/PF`,
+   `Confianza PF`, y el bloque auditable `## Valoración /valorar (IFPUG)` con la
+   tabla de funciones.
 
 2. **Resultado ex post y contraste → 📊 Presupuestos TRABEM**
    (https://app.notion.com/p/8ba2ead5e35545ae82ba052902fbae75), en la MISMA fila
@@ -373,5 +460,5 @@ copian a mano en Presupuestos: se agregan por rollup desde los registros EIE
 relacionados. Las **desviaciones y la accuracy son fórmulas** de la base — no
 las escribas. Si el módulo no tiene presupuesto (trabajo interno, arquitectura,
 deuda técnica, correctivo), haz solo el paso 1. Nunca sobrescribas una
-valoración ni el baseline del presupuesto (§2, §23): cada revisión se añade con
+valoración ni el baseline del presupuesto (§2, §27): cada revisión se añade con
 su fecha.

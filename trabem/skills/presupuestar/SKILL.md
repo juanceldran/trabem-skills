@@ -1,32 +1,32 @@
 ---
 name: presupuestar
-description: Estimación EX ANTE (requisitos → propuesta económica): alcance, PF previstos, EIE, MC1, benchmark, TRABEM €/PF, Value Case, capacidad de absorción, precio recomendado y forma de cobro (Método TRABEM). Baseline inmutable. NO es /valorar (contraste funcional) ni /imputar (registro real).
+description: Estimación EX ANTE del SETUP (requisitos → propuesta económica): alcance, PF previstos, EIE/MC1 internos, referencia de construcción PF TRABEM (PF × €/PF), benchmark externo, Value Case, capacidad de absorción, precio de construcción recomendado y forma de cobro (Método TRABEM). Baseline inmutable. NO es /valorar (contraste funcional) ni /imputar (registro real).
 argument-hint: "[requisitos o proyecto a presupuestar]"
 disable-model-invocation: true
 ---
 
 # SKILL `/presupuestar`
 
-## Estimación ex ante de alcance, PF, EIE, MC1, precio y forma de cobro
+## Estimación ex ante de alcance, PF, referencia de construcción TRABEM (setup) y forma de cobro
 
 ### MISIÓN
 
 La skill `/presupuestar` existe para transformar requisitos todavía no
-construidos en una propuesta económica defendible. Debe responder:
+construidos en una propuesta económica defendible del **setup / construcción**.
+Debe responder:
 
 1. ¿Qué se va a construir?
 2. ¿Qué parte ya existe?
 3. ¿Qué parte es configuración, integración o nueva funcionalidad?
 4. ¿Cuántos PF se prevén?
-5. ¿Qué EIE se prevé?
+5. ¿Qué EIE/HH internos se prevén (instrumentación)?
 6. ¿Qué MC1 se espera?
-7. ¿Qué segmento de cliente es?
-8. ¿Qué valor económico puede generar?
-9. ¿Qué precio recomienda el Método TRABEM?
-10. ¿Cómo conviene cobrarlo?
+7. ¿Cuál es la referencia de construcción PF TRABEM (PF × €/PF)?
+8. ¿Qué dice el benchmark externo y qué valor económico puede generar?
+9. ¿Qué precio de construcción recomienda el Método TRABEM y cómo se cobra?
 
 `/presupuestar` trabaja EX ANTE. No debe presentar como dato real nada que
-todavía sea estimado.
+todavía sea estimado. Valora el **setup**.
 
 **Relación con las otras skills:** `/presupuestar` (antes de construir) →
 construcción → `/imputar` (registro real) → `/valorar --reevaluar` (contraste
@@ -57,6 +57,11 @@ Fuente de verdad interna: `📊 Registro EIE`
 (https://app.notion.com/p/700528d4041b40fa84a6877f32da635c) y doctrina
 comercial `💶 Cómo cobrar trabajos y módulos`
 (https://app.notion.com/p/3c5b83b803fa810ebbc6f63f4a0639b9).
+
+**Constantes** (única fuente, no reescribir literales): `constants/trabem.constants.json`
+del plugin `trabem` — `PF_TRABEM_EUR` (precio comercial de construcción), tarifas
+internas 70/30, bandas ISBSG (benchmark externo) e incentivo. Cárgalo para tomar
+un valor; no repitas los números aquí.
 
 ---
 
@@ -112,21 +117,26 @@ fingir precisión cuando los requisitos sean ambiguos.
 (Método, pesos, tablas de complejidad y guardarraíles anti-inflado: los mismos
 que `/valorar`. No inflar PF por framework, seguridad, idiomas, IA o plazo.)
 
+El **PF es la unidad comercial** (§9); EIE/HH/MC1 (§7–§8) son instrumentación
+interna. No los mezcles.
+
 ---
 
-# 7. EIE PREVISTO
+# 7. EIE PREVISTO E INSTRUMENTACIÓN INTERNA 70/30
 
 Estimar `EIE bajo/central/alto previsto`. Aplicar descuento por reutilización.
 Estimar también el reparto en dos capas: `EIE AI-acelerado previsto` +
 `EIE humano-dominante previsto` (suman el EIE central previsto). Registrar
-`Factor K previsto`. Calcular el **precio a cliente base previsto** por capas
-(constantes 2026, unificadas en `presupuestar`/`valorar`/`imputar`: humano 70 €,
-agente 30 €):
-`Precio a cliente previsto (por capas) = (EIE humano-dominante previsto × 70 €) + (EIE AI-acelerado previsto × 30 €)`.
-Sustituye a la antigua `EIE × 60 € × K`; el `Factor K` se conserva como
-justificación de la banda de EIE, ya no multiplica. Es el **precio base** (capa 2
-del modelo de tres capas: coste MC1 < precio por capas < referencia funcional de
-mercado); el precio final se cierra en el corredor con el Value Case.
+`Factor K previsto` (justifica la banda de EIE; **no** multiplica precio).
+
+Calcular el **valor técnico interno 70/30** previsto:
+`Valor técnico interno = (EIE humano-dominante × tarifa humano) + (EIE AI-acelerado × tarifa agente)`
+(tarifas en `constants/trabem.constants.json` → `instrumentacion_interna`). Es
+**instrumentación interna** (productividad, coste técnico, calibración del PF
+TRABEM, comprobar si cobramos bien): **NO es el precio a cliente**. El precio
+comercial es la referencia de construcción PF TRABEM (§9). Retiradas la
+antigua fórmula por-EIE con Factor K y la etiqueta «Precio a cliente por capas»
+(ver `legacy`).
 
 ---
 
@@ -134,27 +144,46 @@ mercado); el precio final se cierra en el corredor con el Value Case.
 
 Estimar `HH previstas`, `Coste humano previsto`, `Coste IA directo previsto`,
 `Otros MC1 previstos`, `MC1 total previsto`. Marcar TODOS como Estimados.
+(Tarifas de coste hora en `constants/trabem.constants.json` → `mc1`; la
+suscripción plana de Claude Code es MC2 y no se imputa.)
 
 ---
 
-# 9. BENCHMARK EXTERNO PF
+# 9. REFERENCIA DE CONSTRUCCIÓN PF TRABEM (unidad comercial)
+
+Unidad comercial principal = **PF TRABEM**. En cuanto haya `PF previstos`:
+
+`Referencia construcción PF TRABEM = PF previstos × PF_TRABEM_EUR`
+
+`PF_TRABEM_EUR` vigente en `constants/trabem.constants.json` → `comercial`
+(provisional, en calibración sep–dic 2026). Es la referencia de precio de
+**construcción / setup**. **No** apliques todavía escalones automáticos
+100/110/120 (futura decisión de negocio, no regla vigente).
+
+---
+
+# 10. BENCHMARK EXTERNO PF (ISBSG · contraste)
 
 Calcular cuando proceda `Benchmark externo €/PF`, `Percentil benchmark`,
-`Referencia externa PF`. El benchmark ISBSG/IFPUG es referencia externa de
-ingeniería, no precio de cliente automático.
+`Referencia externa PF` (bandas ISBSG en `constants/trabem.constants.json` →
+`benchmark_externo_isbsg`). Es **referencia externa de mercado convencional**:
+sirve de contraste (precio convencional, diferencia con nuestra tarifa propia).
+**Nunca** determina automáticamente el precio TRABEM ni se usa como tarifa
+comercial.
 
 ---
 
-# 10. TRABEM €/PF
+# 11. TRABEM €/PF HISTÓRICO
 
 Con histórico suficiente, recuperar `TRABEM €/PF del segmento` (P25/P50/P65/
 P75). Registrar `Nº comparables` y `Confianza TRABEM €/PF` (baja si la muestra
-es insuficiente). Calcular
-`Referencia TRABEM PF = PF previstos × TRABEM €/PF segmento`.
+es insuficiente). Sirve para **aprender** nuestro propio €/PF y calibrar
+`PF_TRABEM_EUR`; no sustituye a la referencia de construcción vigente (§9).
+Calibración acotada al nicho **sanitario** (`constants…calibracion`).
 
 ---
 
-# 11. CAPACIDAD DE ABSORCIÓN
+# 12. CAPACIDAD DE ABSORCIÓN
 
 Registrar `Precio proyecto / facturación anual cliente %`. Hipótesis empírica
 inicial de contraste: **≈1 % de la facturación anual** para proyectos
@@ -168,7 +197,7 @@ experiencia comercial puede justificar otras duraciones. Registrar
 
 ---
 
-# 12. VALUE CASE
+# 13. VALUE CASE
 
 Analizar cuando exista información: ahorro; capacidad operativa; personal
 evitado; ingresos adicionales; reducción de no-shows; reducción de errores;
@@ -178,51 +207,53 @@ inferido. Registrar `Value Case anual previsto` y `Confianza Value Case`.
 
 ---
 
-# 13. CORREDOR DE PRICING
+# 14. CORREDOR DE PRICING
 
-Construir: `Suelo económico` · `Referencia EIE prevista` ·
-`Referencia TRABEM PF` · `Benchmark externo PF` · `Value Case` ·
-`Capacidad absorción` · `Mercado / alternativas`. No promediar automáticamente;
-investigar divergencias.
-
----
-
-# 14. PRECIO RECOMENDADO
-
-Devolver `Precio mínimo defendible`, `Precio recomendado`, `Rango negociable`,
-`Margen esperado %`, `Confianza presupuesto`. El precio final se cierra por
-alcance. No presentar horas al cliente.
+Construir: `Suelo económico (MC1)` · `Referencia construcción PF TRABEM` ·
+`Valor técnico interno 70/30` · `Benchmark externo PF` · `TRABEM €/PF histórico`
+· `Value Case` · `Capacidad absorción` · `Mercado / alternativas`. La referencia
+de construcción PF TRABEM (§9) es el ancla comercial; el resto son contraste. No
+promediar automáticamente; investigar divergencias.
 
 ---
 
-# 15. FORMA DE COBRO
+# 15. PRECIO DE CONSTRUCCIÓN (SETUP) RECOMENDADO
 
-Clasificar `Forma de cobro`: Setup único · Setup + mensual · Renting
-tecnológico · Suscripción · Evolutivo · Hitos por fases · Otro. Registrar
-`Duración cobro meses`. Cuando el precio total sea correcto pero el pago único
-genere fricción, evaluar `Renting tecnológico`. No reducir el precio total solo
-para reducir cuota.
+Devolver `Precio mínimo defendible`, `Precio de construcción recomendado`,
+`Rango negociable`, `Margen esperado %`, `Confianza presupuesto`. Parte de la
+referencia de construcción PF TRABEM (§9) y ajústala con Value Case y capacidad
+de absorción. El precio final se cierra por alcance. No presentar horas al
+cliente.
 
 ---
 
-# 16. PRODUCTO ESTÁNDAR VS NUEVO DESARROLLO
+# 16. FORMA DE COBRO
+
+Clasificar `Forma de cobro` del setup: Setup único · Setup + mensual · Renting
+tecnológico · Hitos por fases · Otro. Registrar `Duración cobro meses`. Cuando
+el precio total sea correcto pero el pago único genere fricción, evaluar
+`Renting tecnológico`. No reducir el precio total solo para reducir cuota.
+
+---
+
+# 17. PRODUCTO ESTÁNDAR VS NUEVO DESARROLLO
 
 Ejemplo Portal del Paciente: producto estándar → suscripción; configuración →
-setup/adaptación; nueva funcionalidad → PF previstos + valoración TRABEM. No
-presupuestar de nuevo el producto base completo.
+setup/adaptación; nueva funcionalidad → PF previstos + referencia de
+construcción TRABEM. No presupuestar de nuevo el producto base completo.
 
 ---
 
-# 17. BASELINE INMUTABLE
+# 18. BASELINE INMUTABLE
 
 Guardar siempre el presupuesto original. No sobrescribir después: PF previstos,
-EIE previsto, MC1 previsto, precio recomendado, precio aceptado, margen
-previsto, reutilización prevista. Finalidad: comparar después previsión vs
-realidad.
+EIE previsto, MC1 previsto, referencia de construcción, precio recomendado,
+precio aceptado, margen previsto, reutilización prevista. Finalidad: comparar
+después previsión vs realidad.
 
 ---
 
-# 18. CAMPOS DE NOTION PARA `/presupuestar`
+# 19. CAMPOS DE NOTION PARA `/presupuestar`
 
 Añadir o utilizar (recomendado: base propia **Presupuestos**, no mezclar con
 las fichas de producción del Registro EIE; ver OPERATIVO):
@@ -237,56 +268,65 @@ Reutilización prevista · % reutilización prevista.
 **PF previstos:** EI previstos · EO previstos · EQ previstos · ILF previstos ·
 EIF previstos · PF previstos · Confianza PF prevista.
 
-**EIE previsto:** EIE bajo/central/alto previsto · Factor K previsto ·
-Referencia EIE prevista.
+**Ingeniería interna:** EIE bajo/central/alto previsto · Factor K previsto ·
+Valor técnico interno 70/30 previsto (€) · €/PF observado interno.
 
 **Costes:** HH previstas · Coste humano previsto · Coste IA previsto · Otros
 MC1 previstos · MC1 total previsto.
 
-**Benchmark / pricing:** Benchmark externo €/PF · Percentil benchmark ·
-Referencia externa PF · TRABEM €/PF segmento · Nº comparables · Referencia
-TRABEM PF · Confianza TRABEM €/PF.
+**Comercial (construcción):** PF TRABEM €/PF · Referencia construcción PF TRABEM
+(€) · Precio mínimo defendible · Precio de construcción recomendado · Rango
+negociable · Precio aceptado · Margen esperado %.
+
+**Benchmark / calibración:** Benchmark externo ISBSG €/PF · Percentil benchmark ·
+Referencia externa ISBSG (€) · TRABEM €/PF segmento · Nº comparables · Confianza
+TRABEM €/PF.
 
 **Cliente / valor:** Value Case anual previsto · Confianza Value Case ·
 Capacidad anual orientativa · Capacidad mensual orientativa · % proyecto /
 facturación anual.
 
-**Comercial:** Precio mínimo defendible · Precio recomendado previsto · Rango
-negociable · Precio aceptado · Forma de cobro · Duración cobro meses · Margen
-esperado %.
-
-**Control:** Confianza presupuesto · Estado presupuesto.
+**Cobro / control:** Forma de cobro · Duración cobro meses · Confianza
+presupuesto · Estado presupuesto.
 
 ---
 
-# 19. SALIDA OBLIGATORIA
+# 20. SALIDA OBLIGATORIA
 
-**Cliente:**
-**Segmento:**
-**Facturación:**
-**Alcance:**
-**PF previstos:**
-**Confianza PF:**
-**EIE previsto:**
-**MC1 previsto:**
-**Referencia EIE:**
-**Referencia TRABEM PF:**
-**Value Case:**
-**Capacidad absorción:**
-**Precio recomendado:**
-**Forma de cobro:**
-**Margen esperado:**
-**Confianza:**
+Distinguir siempre las tres capas de la propuesta de **setup**:
+
+**Cliente / Segmento / Facturación:**
+
+**A) CONSTRUCCIÓN / SETUP**
+- PF previstos · Confianza PF:
+- €/PF TRABEM vigente:
+- Referencia construcción PF TRABEM (€):
+- Precio de construcción recomendado · Rango:
+
+**B) INGENIERÍA INTERNA (instrumentación, no precio a cliente)**
+- EIE previsto (central; AI-acelerado / humano-dominante):
+- HH previstas:
+- Valor técnico interno 70/30 (€):
+- MC1 previsto:
+
+**C) BENCHMARK EXTERNO (contraste ISBSG, no tarifa)**
+- €/PF ISBSG · Percentil:
+- Referencia externa ISBSG (€):
+- Diferencia con la tarifa propia:
+
+**Cierre:** Value Case · Capacidad absorción · Forma de cobro · Margen esperado ·
+Confianza.
 
 ---
 
-# 20. PRINCIPIO FINAL
+# 21. PRINCIPIO FINAL
 
 `/presupuestar` no intenta determinar cuánto tardará una persona y
-multiplicarlo por una tarifa. Determina tamaño funcional previsto,
-reutilización, entidad técnica, coste esperado, valor para el cliente,
-comportamiento histórico del segmento, capacidad de absorción y margen; y
-propone un precio coherente con el Método TRABEM.
+multiplicarlo por una tarifa. Determina tamaño funcional previsto (PF, la unidad
+comercial), reutilización, entidad técnica interna, coste esperado, valor para
+el cliente, comportamiento histórico del segmento, capacidad de absorción y
+margen; y propone un precio de construcción (setup) coherente con el Método
+TRABEM.
 
 ---
 
@@ -296,11 +336,11 @@ Cada presupuesto es **una fila** en la base **📊 Presupuestos TRABEM ·
 Predicción vs realidad**
 (https://app.notion.com/p/8ba2ead5e35545ae82ba052902fbae75) — capa separada del
 Registro EIE (que es la fuente de verdad de PRODUCCIÓN). Rellena ahí los campos
-EX ANTE (§18): identificación, alcance previsto, PF/EIE/MC1 previstos,
-benchmark, TRABEM €/PF, Value Case, capacidad de absorción, precio y forma de
-cobro. Marca todo lo previsto como estimado.
+EX ANTE (§19): identificación, alcance previsto, PF/EIE/MC1 previstos, referencia
+de construcción PF TRABEM, benchmark, Value Case, capacidad de absorción, precio
+y forma de cobro. Marca todo lo previsto como estimado.
 
-- **Baseline inmutable (§17):** cuando el presupuesto pase a `Aceptado`, NO
+- **Baseline inmutable (§18):** cuando el presupuesto pase a `Aceptado`, NO
   reescribas sus campos previstos. Un cambio material de alcance crea una
   **nueva fila** (sube `Versión presupuesto`) enlazada por `Presupuesto
   anterior`; nunca borres la historia.
@@ -314,5 +354,5 @@ cobro. Marca todo lo previsto como estimado.
 - **No escribas** desviaciones, accuracy ni €/PF: son fórmulas de la base.
 
 `/presupuestar` no fija tarifas oficiales ni presenta horas al cliente: produce
-una propuesta cerrada por alcance, defendible y trazable, y deja el baseline
-para que `/valorar` mida después la realidad.
+una propuesta de setup cerrada por alcance, defendible y trazable, y deja el
+baseline para que `/valorar` mida después la realidad.

@@ -1,7 +1,7 @@
 {
   "name": "trabem",
-  "description": "Skills de ingeniería AI-native TRABEM. /imputar: registro auditable (EIE, productividad, MC1, reutilización). /valorar: valoración funcional IFPUG + benchmark ISBSG. /presupuestar: estimación ex ante (PF/EIE/MC1 previstos + Value Case + capacidad de absorción + precio y forma de cobro). Base en Notion.",
-  "version": "2.8.0",
+  "description": "Skills de ingeniería AI-native TRABEM. Unidad comercial = PF TRABEM (PF × €/PF, constante versionada en constants/). 70/30 = instrumentación interna; ISBSG = benchmark externo. /imputar: registro auditable (EIE, valor técnico interno 70/30, MC1). /valorar: PF válidos (IFPUG + puerta de calidad), referencia de construcción TRABEM, contraste y aprendizaje. /presupuestar: estimación ex ante del setup (PF/EIE/MC1, referencia de construcción, benchmark, forma de cobro). Base en Notion.",
+  "version": "3.0.0",
   "author": {
     "name": "TRABEM · Silvermind"
   }

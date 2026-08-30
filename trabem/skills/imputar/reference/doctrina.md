@@ -110,13 +110,18 @@ resolverse el problema.
 No contabilizar dos veces la misma dificultad: si ya elevó el EIE, no volver a
 aplicarla íntegramente vía K. Ante duda, el K inferior.
 
-### Referencia técnica
+### Valor técnico interno 70/30
 
-`Referencia técnica = EIE central × 60 € × Factor K`.
+`Valor técnico interno = (EIE humano-dominante × tarifa humano) + (EIE AI-acelerado × tarifa agente)`.
 
-La constante de 60 €/EIE permanece vigente hasta revisión formal. Es una
-referencia técnica interna; **no** es automáticamente el precio final del
-cliente. No presentar las EIE como horas realmente trabajadas.
+Tarifas vigentes **solo** en `constants/trabem.constants.json`
+(`instrumentacion_interna`). Es **instrumentación interna** (productividad, coste
+técnico, calibración del PF TRABEM); **no** es el precio a cliente. Retiradas: la
+antigua constante única `60 €/EIE × Factor K` y la etiqueta «Precio a cliente
+(por capas)» (ver `legacy` en el JSON; los históricos se conservan). El **precio
+comercial** es otra capa —`PF válidos × PF_TRABEM_EUR`— y se decide en `/valorar`.
+El `Factor K` justifica la banda de EIE, no multiplica. No presentar las EIE como
+horas realmente trabajadas.
 
 ---
 
@@ -163,8 +168,8 @@ una subtarea con EIE de un módulo completo. Si el alcance no es homogéneo,
 
 ## MC1 — coste directo del trabajo
 
-`Coste hora humano` (referencia provisional: 30 €/h).
-`Coste humano MC1 = Horas humanas totales × coste hora`.
+`Coste hora humano` por rol (valores en `constants/trabem.constants.json` → `mc1`).
+`Coste humano MC1 = Σ(horas × coste hora del rol)`.
 Registrar además `Coste IA`, `Otros MC1`, `MC1 total`.
 
 ### MC1 vs MC2
