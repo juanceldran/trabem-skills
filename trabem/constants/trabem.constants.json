@@ -88,6 +88,13 @@
     "nota": "El €/PF TRABEM se calibra para el nicho sanitario. No mezclar automáticamente proyectos de otros sectores en la calibración: pueden mantenerse como contraste metodológico, pero no alimentan el benchmark propio sanitario salvo decisión expresa."
   },
 
+  "pf_diseno_sistema_escalador": {
+    "principio": "El DISEÑO DE UN SISTEMA QUE PERMITE A LA EMPRESA ESCALAR se premia con PF, aunque NO sea software IFPUG-contable (skills/método, pipeline de marketing/contenido, infra/gemelo digital, doctrina). Puerta de calidad = validación / puesta en marcha del sistema.",
+    "reconocimiento_pf": "Si IFPUG aplica (sistema funcional software) → conteo IFPUG. Si NO aplica → PF de reconocimiento ≈ 0,5 × EIE central (heurístico, CALIBRABLE).",
+    "no_cuenta": "Correctivos (0 PF), trabajo que no diseña un sistema, y contenido/operación repetitiva sin diseño de sistema.",
+    "nota": "Idealmente cada función (marketing, infra, método) tendrá su propia unidad de desempeño; mientras tanto se reconoce en PF. Cuidado: bajo esta regla el diseño intensivo de sistemas internos puede superar las bandas pensadas para producción software — recalibrar bandas si procede."
+  },
+
   "legacy": {
     "descripcion": "Semántica ANTIGUA conservada solo para LEER registros históricos de Notion. No usar en registros nuevos; no reescribir históricos.",
     "referencia_tecnica_60_x_K": "Hasta 2026-08: 'Referencia técnica = EIE central × 60 € × Factor K'. Constante 60 €/EIE retirada; el Factor K ya no multiplica precio.",
