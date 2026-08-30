@@ -78,3 +78,29 @@ export function bandaIncentivoMensual(pfNetosMes, b = C.incentivo.bandas_mensual
   if (pfNetosMes >= b.suelo) return 'suelo';
   return 'bajo';
 }
+
+// ─────────────────────────────────────────────────────────────────────────
+// PLANO 1 — COSTE HUMANO REAL. El coste/hora real es POR PERSONA y vive en
+// Notion (dato sensible): se pasa como argumento, NUNCA se hardcodea aquí ni
+// se usa la tarifa 70/30 en su lugar.
+// ─────────────────────────────────────────────────────────────────────────
+/** Coste humano real = HH reales × coste/hora real del trabajador. */
+export function costeHumanoReal(hhReales, costeHoraTrabajador) {
+  return hhReales * costeHoraTrabajador;
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Alias inequívocos por plano (mismos cálculos, nombre del plano).
+// ─────────────────────────────────────────────────────────────────────────
+/** PLANO 3 — Valor comercial de construcción = PF válidos × PF_TRABEM_EUR. */
+export const valorComercialTRABEM = referenciaConstruccionTRABEM;
+/** PLANO 4 — Incentivo de desarrollo = PF netos × 1,25 €. */
+export const incentivoDesarrollo = valorIncentivoIndividual;
+
+// ─────────────────────────────────────────────────────────────────────────
+// MÉTRICAS derivadas (§6 de la calibración).
+// ─────────────────────────────────────────────────────────────────────────
+export const eieTotal = (eieHumano, eieAI) => eieHumano + eieAI;
+export const pfPorHH = (pf, hh) => (hh ? pf / hh : null);
+export const costeRealPorPF = (coste, pf) => (pf ? coste / pf : null);
+export const valorTecnicoPorPF = (valorTecnico, pf) => (pf ? valorTecnico / pf : null);

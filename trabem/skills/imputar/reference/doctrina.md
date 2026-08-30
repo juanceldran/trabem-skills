@@ -168,8 +168,9 @@ una subtarea con EIE de un módulo completo. Si el alcance no es homogéneo,
 
 ## MC1 — coste directo del trabajo
 
-`Coste hora humano` por rol (valores en `constants/trabem.constants.json` → `mc1`).
-`Coste humano MC1 = Σ(horas × coste hora del rol)`.
+`Coste hora humano` **real por persona** (salario cargado; dato sensible en
+Notion, no en el repo; **no** es la tarifa 70/30).
+`Coste humano MC1 = Σ(horas × coste hora real)`.
 Registrar además `Coste IA`, `Otros MC1`, `MC1 total`.
 
 ### MC1 vs MC2
