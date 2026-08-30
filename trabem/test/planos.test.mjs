@@ -16,6 +16,7 @@ import {
   valorTecnicoPorPF,
   gradoRealizacionPF,
   tensionPF,
+  pfIncentivables,
 } from '../constants/trabem.constants.mjs';
 
 // Plano 3 — valor comercial: ejemplos de la calibración.
@@ -93,4 +94,13 @@ test('grado de realización y tensión: PF aspiracional vs lo cobrado', () => {
   assert.ok(Math.abs(tensionPF(3600, 70) - (1 - g)) < 1e-9);
   // Guarda de división por cero.
   assert.equal(gradoRealizacionPF(1000, 0), null);
+});
+
+// Elegibilidad del incentivo: interno siempre; cliente solo por caja.
+test('PF incentivables: interno completo, cliente solo por caja', () => {
+  assert.equal(pfIncentivables(70, { interno: true }), 70); // interno (Propio)
+  assert.equal(pfIncentivables(194, { interno: false, fraccionCobrada: 0 }), 0); // DWFW sin caja
+  assert.equal(pfIncentivables(100, { interno: false, fraccionCobrada: 0.5 }), 50); // cliente 50% cobrado
+  assert.equal(pfIncentivables(100, { interno: false, fraccionCobrada: 2 }), 100); // clamp a 1
+  assert.equal(pfIncentivables(80), 0); // por defecto: no interno, sin caja
 });

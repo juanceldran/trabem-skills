@@ -283,6 +283,13 @@ del incentivo (valor €/PF y bandas mensuales) viven en
 `constants/trabem.constants.json` → `incentivo`. No crear aquí una skill de
 incentivos.
 
+**Elegibilidad (`incentivo.elegibilidad`):** todo se mide igual, pero a la base
+del incentivo entran los **`PF incentivables`**: **Interno (`Tipo proyecto =
+Propio`)** → PF netos completos; **Cliente** → PF netos **solo en la medida en
+que mete caja** (cobro; sanitarios vía proxy ~1 %). Un cliente **estratégico sin
+caja** (p.ej. DWFW) se mide pero **no computa** para el incentivo hasta que
+cobre, dentro de su tope. Registra `PF incentivables`.
+
 ---
 
 # 24. CAMPOS DE NOTION PARA `/valorar`
