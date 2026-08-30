@@ -161,7 +161,10 @@ precio comercial es la referencia de construcción (§11).
 
 `PF_TRABEM_EUR` vigente en `constants/trabem.constants.json` → `comercial`.
 Es la referencia de precio de **construcción / setup** (la unidad comercial es
-el PF). No apliques todavía escalones 100/110/120.
+el PF). No apliques todavía escalones 100/110/120. El PF es **aspiracional**:
+registra también el **precio real cobrado** al cliente y mantén la **tensión**
+(grado de realización = precio real/PF ÷ PF_TRABEM_EUR); no colapses el PF en lo
+que se cobra.
 
 ---
 

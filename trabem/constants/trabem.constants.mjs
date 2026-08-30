@@ -104,3 +104,19 @@ export const eieTotal = (eieHumano, eieAI) => eieHumano + eieAI;
 export const pfPorHH = (pf, hh) => (hh ? pf / hh : null);
 export const costeRealPorPF = (coste, pf) => (pf ? coste / pf : null);
 export const valorTecnicoPorPF = (valorTecnico, pf) => (pf ? valorTecnico / pf : null);
+
+// ─────────────────────────────────────────────────────────────────────────
+// TENSIÓN PF aspiracional ↔ precio realizable. El PF_TRABEM_EUR es aspiracional;
+// el precio REAL cobrado a cada cliente puede ser menor. Se mide la distancia.
+// ─────────────────────────────────────────────────────────────────────────
+/** Grado de realización = (precio real cobrado / PF válidos) ÷ PF_TRABEM_EUR.
+ *  1 = se cobra el PF aspiracional completo · <1 = por debajo. */
+export function gradoRealizacionPF(precioRealCobrado, pfValidos, pfEur = C.comercial.PF_TRABEM_EUR) {
+  if (!pfValidos || !pfEur) return null;
+  return precioRealCobrado / pfValidos / pfEur;
+}
+/** Tensión = brecha respecto al PF aspiracional (1 − grado de realización). */
+export function tensionPF(precioRealCobrado, pfValidos, pfEur = C.comercial.PF_TRABEM_EUR) {
+  const g = gradoRealizacionPF(precioRealCobrado, pfValidos, pfEur);
+  return g == null ? null : 1 - g;
+}
