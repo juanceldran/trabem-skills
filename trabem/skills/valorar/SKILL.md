@@ -123,6 +123,14 @@ Registrar `Retrabajo imputable` y a quién se atribuye. (Sin automatismos
 complejos todavía: estructura preparada y documentada; el modelo de datos crece
 después.)
 
+**Correctivo AJENO → baja el objetivo (no perjudica al corrector):** cuando el
+corrector **no** es el responsable original (error de tercero / cambio externo),
+sus horas se registran en `Capacidad neutralizada (h)` y **reducen su objetivo
+mensual**: `banda × (capacidad_mensual_ref − capacidad neutralizada) /
+capacidad_mensual_ref` (ver `incentivo.ajuste_por_correctivo_ajeno`). No sube PF,
+pero **le baja el listón** de la banda en la proporción que le robó el correctivo
+ajeno.
+
 ---
 
 # 8. EIE REAL

@@ -66,6 +66,12 @@
       "cliente": "Tipo proyecto = Cliente → cuenta SOLO en la medida en que mete CAJA (cobro; sanitarios vía proxy ~1% facturación). Sin cobro → PF incentivables = 0.",
       "estrategico": "Cliente estratégico sin caja (p.ej. DWFW, contraprestación a un favor) se acepta y se mide, pero NO computa para el incentivo hasta que meta caja (dentro de su tope estratégico). El founder vigila que el saldo no se vaya de madre.",
       "formula_pf_incentivables": "Propio → PF netos · Cliente → PF netos × fracción cobrada (0 si no hay caja)"
+    },
+    "ajuste_por_correctivo_ajeno": {
+      "principio": "Un correctivo NO atribuible al trabajador (error de tercero / cambio externo) no sube PF, PERO no debe perjudicarle: las horas que le consume se registran como 'capacidad neutralizada' y REDUCEN su objetivo mensual (se le baja el listón de la banda en proporción a la capacidad que le robó).",
+      "capacidad_mensual_ref_h": 140,
+      "formula_objetivo_ajustado": "banda × (capacidad_mensual_ref_h − capacidad_neutralizada_h) / capacidad_mensual_ref_h",
+      "nota": "capacidad_mensual_ref_h es orientativa/configurable (~20 jornadas de 7 h). El corrector no gana PF por el correctivo ajeno, pero tampoco se le exige el objetivo completo."
     }
   },
 
