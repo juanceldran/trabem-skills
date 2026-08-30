@@ -132,3 +132,20 @@ export function pfIncentivables(pfNetos, { interno = false, fraccionCobrada = 0 
   if (interno) return pfNetos;
   return pfNetos * Math.max(0, Math.min(1, fraccionCobrada));
 }
+
+// ─────────────────────────────────────────────────────────────────────────
+// AJUSTE POR CORRECTIVO AJENO. El correctivo no atribuible al trabajador no sube
+// PF, pero su 'capacidad neutralizada' (horas) BAJA el objetivo mensual del
+// corrector en proporción, para no perjudicarle.
+// ─────────────────────────────────────────────────────────────────────────
+/** Objetivo mensual (banda PF) ajustado por la capacidad que consumió un
+ *  correctivo ajeno. */
+export function objetivoAjustado(
+  bandaPf,
+  capacidadNeutralizadaH,
+  capacidadMesH = C.incentivo.ajuste_por_correctivo_ajeno.capacidad_mensual_ref_h,
+) {
+  if (!capacidadMesH) return bandaPf;
+  const factor = Math.max(0, (capacidadMesH - capacidadNeutralizadaH) / capacidadMesH);
+  return bandaPf * factor;
+}

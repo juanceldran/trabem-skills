@@ -17,6 +17,7 @@ import {
   gradoRealizacionPF,
   tensionPF,
   pfIncentivables,
+  objetivoAjustado,
 } from '../constants/trabem.constants.mjs';
 
 // Plano 3 — valor comercial: ejemplos de la calibración.
@@ -103,4 +104,11 @@ test('PF incentivables: interno completo, cliente solo por caja', () => {
   assert.equal(pfIncentivables(100, { interno: false, fraccionCobrada: 0.5 }), 50); // cliente 50% cobrado
   assert.equal(pfIncentivables(100, { interno: false, fraccionCobrada: 2 }), 100); // clamp a 1
   assert.equal(pfIncentivables(80), 0); // por defecto: no interno, sin caja
+});
+
+// El correctivo ajeno baja el objetivo mensual (no perjudica al corrector).
+test('objetivo ajustado por correctivo ajeno (capacidad neutralizada)', () => {
+  assert.equal(objetivoAjustado(160, 0), 160); // sin correctivo ajeno → sin cambio
+  assert.equal(objetivoAjustado(240, 14), 216); // 14 h de 140 (10%) → banda 240 baja a 216
+  assert.equal(objetivoAjustado(160, 140), 0); // mes entero consumido → objetivo 0
 });
