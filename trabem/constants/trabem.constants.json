@@ -59,7 +59,14 @@
     "unidad": "€ netos/PF",
     "formula_pf_netos": "PF_validos − PF_equivalentes_de_retrabajo_imputable",
     "bandas_mensuales_pf": { "suelo": 160, "normal": 240, "alto": 320 },
-    "nota": "1,25 €/PF (incentivo individual) NO es 90 €/PF (precio comercial de construcción). Son dos cosas completamente distintas."
+    "nota": "1,25 €/PF (incentivo individual) NO es 90 €/PF (precio comercial de construcción). Son dos cosas completamente distintas.",
+    "elegibilidad": {
+      "principio": "Todo el trabajo se MIDE igual (EIE, PF, coste). Lo que ENTRA en la base del incentivo depende de la caja.",
+      "interno": "Tipo proyecto = Propio → cuenta SIEMPRE (inversión en TRABEM). PF incentivables = PF netos.",
+      "cliente": "Tipo proyecto = Cliente → cuenta SOLO en la medida en que mete CAJA (cobro; sanitarios vía proxy ~1% facturación). Sin cobro → PF incentivables = 0.",
+      "estrategico": "Cliente estratégico sin caja (p.ej. DWFW, contraprestación a un favor) se acepta y se mide, pero NO computa para el incentivo hasta que meta caja (dentro de su tope estratégico). El founder vigila que el saldo no se vaya de madre.",
+      "formula_pf_incentivables": "Propio → PF netos · Cliente → PF netos × fracción cobrada (0 si no hay caja)"
+    }
   },
 
   "factor_k": {

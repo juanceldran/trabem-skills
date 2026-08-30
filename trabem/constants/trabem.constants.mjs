@@ -120,3 +120,15 @@ export function tensionPF(precioRealCobrado, pfValidos, pfEur = C.comercial.PF_T
   const g = gradoRealizacionPF(precioRealCobrado, pfValidos, pfEur);
   return g == null ? null : 1 - g;
 }
+
+// ─────────────────────────────────────────────────────────────────────────
+// ELEGIBILIDAD DEL INCENTIVO. Todo se mide igual; lo que ENTRA en la base del
+// incentivo depende de la caja: interno cuenta siempre; cliente solo por lo cobrado.
+// ─────────────────────────────────────────────────────────────────────────
+/** PF que entran en la base del incentivo.
+ *  interno=true (Tipo proyecto Propio) → PF netos completos.
+ *  cliente → PF netos × fracción cobrada (0 si no hay caja; DWFW estratégico = 0). */
+export function pfIncentivables(pfNetos, { interno = false, fraccionCobrada = 0 } = {}) {
+  if (interno) return pfNetos;
+  return pfNetos * Math.max(0, Math.min(1, fraccionCobrada));
+}
