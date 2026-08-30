@@ -21,8 +21,11 @@ para que el código no pueda confundir el **precio comercial** con el
 | **Benchmark externo** | `benchmark_externo_isbsg.bandas` | 925 / 775 / 590 / 475 €/PF por banda | Contraste ISBSG. **Nunca** fija el precio TRABEM. |
 | **Incentivo individual** | `incentivo.VALOR_PF_EUR` | **1,25 €/PF netos** | Sistema distinto del precio. `1,25 ≠ 90`. |
 
-`MC1` (coste directo): `COSTE_HORA_HUMANO_SENIOR_EUR` 70 €/h, `COSTE_HORA_AGENTE_EUR`
-30 €/h. La suscripción plana de Claude Code es **MC2** y no se imputa.
+`MC1` (coste directo) = Σ(horas × **coste hora real de la persona**). El coste
+hora real (salario cargado) es **dato sensible**: vive solo en Notion
+(`Coste hora humano` por ficha), **no** en este repo. No confundir con las
+tarifas 70/30 (instrumentación). La suscripción plana de Claude Code es **MC2** y
+no se imputa.
 
 ## Reglas de doctrina que estas constantes materializan
 

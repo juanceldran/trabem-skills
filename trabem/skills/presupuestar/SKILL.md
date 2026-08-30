@@ -61,7 +61,10 @@ comercial `💶 Cómo cobrar trabajos y módulos`
 **Constantes** (única fuente, no reescribir literales): `constants/trabem.constants.json`
 del plugin `trabem` — `PF_TRABEM_EUR` (precio comercial de construcción), tarifas
 internas 70/30, bandas ISBSG (benchmark externo) e incentivo. Cárgalo para tomar
-un valor; no repitas los números aquí.
+un valor; no repitas los números aquí. **Cuatro planos económicos** (no confundir;
+ver `planos_economicos`): (1) coste humano real = HH × coste/hora real por persona ·
+(2) valoración técnica interna = EIE 70/30 · (3) valor comercial = PF válidos × 90 ·
+(4) incentivo = PF netos × 1,25.
 
 ---
 
@@ -144,8 +147,9 @@ antigua fórmula por-EIE con Factor K y la etiqueta «Precio a cliente por capas
 
 Estimar `HH previstas`, `Coste humano previsto`, `Coste IA directo previsto`,
 `Otros MC1 previstos`, `MC1 total previsto`. Marcar TODOS como Estimados.
-(Tarifas de coste hora en `constants/trabem.constants.json` → `mc1`; la
-suscripción plana de Claude Code es MC2 y no se imputa.)
+(El coste hora **real** es por persona y vive en Notion (`Coste hora humano`), no
+en el repo; **no** es la tarifa 70/30. La suscripción plana de Claude Code es MC2
+y no se imputa.)
 
 ---
 

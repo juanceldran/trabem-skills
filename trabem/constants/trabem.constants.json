@@ -3,6 +3,16 @@
   "doctrina_vigente_desde": "2026-08-30",
   "nota": "FUENTE ÚNICA de constantes del Método TRABEM. NO repetir estos literales (90, 70, 30, tablas ISBSG, 1,25, bandas) en las skills ni en la doctrina: referenciarlos por NOMBRE y cargar este fichero cuando se necesite un valor. Los registros históricos de Notion conservan su semántica antigua (ver 'legacy'); no se reescriben.",
 
+  "planos_economicos": {
+    "descripcion": "REGLA FUNDAMENTAL: no reutilizar una misma cifra para conceptos distintos. TRABEM tiene CUATRO planos económicos separados, con nombres inequívocos.",
+    "1_coste_humano_real": "HH reales × coste/hora REAL del trabajador (por persona; vive en Notion, no en el repo). Es COSTE para TRABEM. No es precio, no es EIE.",
+    "2_valoracion_tecnica_interna_eie": "(EIE humano × 70) + (EIE agente/IA × 30). Capacidad técnica / productividad / apalancamiento AI-native. No es nómina, no es coste del agente, no es precio a cliente.",
+    "3_valor_comercial_pf": "PF válidos × PF_TRABEM_EUR (90 €). Referencia comercial de construcción. No es coste, no es EIE, no es incentivo, no es SaaS/consumos.",
+    "4_incentivo_desarrollo": "PF netos × 1,25 €. Incentivo del desarrollador. PF netos = PF válidos − retrabajo imputable.",
+    "benchmark_externo": "ISBSG (925/775/590/475 €/PF): SOLO referencia de mercado / contraste. NO es el precio TRABEM.",
+    "no_confundir": "90 €/PF = valor comercial · 1,25 €/PF = incentivo empleado · 70/30 = valoración técnica interna · coste/hora real = coste laboral. Cuatro planos distintos."
+  },
+
   "comercial": {
     "descripcion": "Unidad comercial principal para módulos y desarrollos funcionales de TRABEM en salud. Referencia de construcción = PF válidos × PF_TRABEM_EUR.",
     "PF_TRABEM_EUR": 90,
@@ -25,10 +35,8 @@
   },
 
   "mc1": {
-    "descripcion": "MC1 = coste directo del trabajo (horas × tarifa de rol). La suscripción plana de Claude Code es MC2 y no se imputa.",
-    "COSTE_HORA_HUMANO_SENIOR_EUR": 70,
-    "COSTE_HORA_AGENTE_EUR": 30,
-    "unidad": "€/h"
+    "descripcion": "MC1 = coste directo del trabajo = Σ(horas × coste hora REAL de la persona). El coste hora real es el salario cargado por persona (DATO SENSIBLE): vive SOLO en Notion (campo 'Coste hora humano' por ficha), NUNCA en este repo público. La suscripción plana de Claude Code es MC2 y no se imputa.",
+    "no_confundir": "70 y 30 (instrumentacion_interna) son TARIFAS de instrumentación, NO el coste hora real. No usar las tarifas como MC1."
   },
 
   "benchmark_externo_isbsg": {

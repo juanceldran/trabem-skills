@@ -136,7 +136,7 @@ bitácora con una última fila. Sin re-valorar todo desde cero.
 - **Horas**: `Horas humanas Claude` + `Horas humanas fuera` = `totales`.
   `Base horas` = `Registradas` (las aporta la persona) o `Estimadas`
   (reconstruidas). No presentes estimadas como registradas.
-- **MC1**: `Coste hora humano` por rol (valores en `constants/trabem.constants.json` → `mc1`: senior María/Juan/Aurelio, agente) → `Coste humano MC1 = Σ(horas × tarifa del rol)`.
+- **MC1**: `Coste hora humano` **real por persona** (salario cargado; vive en Notion, no en el repo; **no** es la tarifa 70/30) → `Coste humano MC1 = Σ(horas × coste hora real)`.
   Más `Coste IA`, `Otros MC1`, `MC1 total`. La **suscripción plana de Claude
   Code es MC2** y no se imputa.
 - **Ratio compresión = EIE / horas totales**, solo si las horas son
@@ -188,9 +188,10 @@ No leas estos ficheros por rutina — cuestan contexto:
   reutilización, EIE evitado, calidad del dato). **Léelo solo ante una duda de
   criterio** que §5 no resuelva, o si alguien cuestiona una valoración.
 - `constants/trabem.constants.json` (raíz del plugin `trabem`) → **única fuente**
-  de las constantes numéricas (tarifas internas 70/30, MC1, PF_TRABEM_EUR, bandas
+  de las constantes numéricas (tarifas internas 70/30, PF_TRABEM_EUR, bandas
   ISBSG, incentivo). Es pequeño; cárgalo cuando necesites un valor. **No** reescribas
   esos números en la ficha ni en el resumen.
+  **Cuatro planos económicos** (no confundir; ver `planos_economicos`): (1) **coste humano real** = HH × coste/hora real por persona (en Notion, no en el repo) · (2) **valoración técnica interna** = EIE 70/30 · (3) **valor comercial** = PF válidos × 90 · (4) **incentivo** = PF netos × 1,25. `/imputar` registra el plano 1 (coste real) y el plano 2 (EIE + valor técnico interno); los planos 3 y 4 los cierra `/valorar`.
 
 ---
 

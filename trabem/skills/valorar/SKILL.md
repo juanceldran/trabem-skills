@@ -51,7 +51,10 @@ comercial `💶 Cómo cobrar trabajos y módulos`
 
 **Constantes** (única fuente, no reescribir literales): `constants/trabem.constants.json`
 del plugin `trabem` — `PF_TRABEM_EUR`, tarifas internas 70/30, bandas ISBSG
-(benchmark externo) e incentivo. Cárgalo para tomar un valor.
+(benchmark externo) e incentivo. Cárgalo para tomar un valor. **Cuatro planos
+económicos** (no confundir; ver `planos_economicos`): (1) coste humano real = HH ×
+coste/hora real por persona · (2) valoración técnica interna = EIE 70/30 · (3) valor
+comercial = PF válidos × 90 · (4) incentivo = PF netos × 1,25.
 
 ---
 
@@ -134,8 +137,8 @@ corrección. No modificar el EIE automáticamente para hacerlo converger con PF.
 
 Registrar `HH reales`, `Base horas`, `Coste humano real`, `Coste IA real`,
 `Otros MC1 reales`, `MC1 real`. Priorizar horas registradas. No sustituir datos
-reales por reconstrucciones si existen. (Tarifas de coste hora en
-`constants/trabem.constants.json` → `mc1`; la suscripción de Claude Code es MC2.)
+reales por reconstrucciones si existen. (El coste hora **real** es por persona y vive en Notion (`Coste hora humano`), no
+en el repo; **no** es la tarifa 70/30. La suscripción de Claude Code es MC2.)
 
 ---
 
@@ -196,6 +199,12 @@ Registrar `Reutilización real` (No · Parcial · Sí), `% reutilización real`,
 Con HH registradas y homogéneas: `PF / HH` y `EIE / HH`. Calcular `MC1 / PF` y
 `EIE / PF`. Separar productividad funcional, compresión técnica y coste
 unitario funcional.
+
+**Métricas de cierre (§ calibración)** — deben quedar obtenibles: `PF válidos`,
+`HH reales`, `PF/HH`, `Coste humano real`, `Coste humano real/PF`, `EIE humano`,
+`EIE agente`, `EIE total`, `Valor técnico interno 70/30`, `Valor técnico interno/PF`,
+`Referencia comercial (PF válidos × 90)`, `Retrabajo imputable`, `PF netos`,
+`Incentivo desarrollo = PF netos × 1,25`, y la desviación presupuesto vs realidad.
 
 ---
 
