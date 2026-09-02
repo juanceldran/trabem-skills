@@ -21,7 +21,8 @@ campos existentes).
 
 > `Responsable` es **texto libre sin validación**. Escribe siempre uno de estos
 > cuatro, literal: `Juan Celdrán Alenda` · `Aurelio Fernández Moreno` ·
-> `María Sánchez Moreno` · `Paqui`. Cualquier variante (p. ej. «Juan Celdrán») crea una
+> `María Sánchez Moreno` · `Paqui Celdrán Alenda`. Cualquier variante (p. ej.
+> «Juan Celdrán») crea una
 > persona fantasma y parte en dos las agrupaciones por responsable.
 > Quién es se **pregunta**, no se deduce: los tres comparten cuenta (SKILL §3.1).
 
