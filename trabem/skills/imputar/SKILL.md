@@ -97,7 +97,7 @@ Imputa de una vez todo lo trabajado hoy, repartido entre módulos.
    **`Responsable` se escribe exactamente así** (campo de texto libre, sin
    validación: cualquier variante parte las agrupaciones por persona):
    `Juan Celdrán Alenda` · `Aurelio Fernández Moreno` · `María Sánchez Moreno` ·
-   `Paqui`.
+   `Paqui Celdrán Alenda`.
    **Jornada por persona** (denominador fijo, no se pregunta cada día):
 
    | Persona | Jornada |
