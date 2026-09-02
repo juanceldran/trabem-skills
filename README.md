@@ -53,6 +53,29 @@ Cuando la skill cambie, se hace push aquí. Para recibirla:
 /plugin marketplace update trabem-skills
 ```
 
+**Hay que hacerlo en cada máquina.** El plugin no vive en la cuenta de Claude,
+vive en la instalación local: que un cambio esté en `main` no lo empuja a nadie.
+Compartir cuenta no actualiza a los demás.
+
+### Comprobar que ha entrado
+
+1. **Versión** — la instalada debe coincidir con la de
+   [`trabem/.claude-plugin/plugin.json`](trabem/.claude-plugin/plugin.json) en `main`.
+2. **Comportamiento** — es la prueba que de verdad zanja el asunto: lanza
+   `/imputar`. Desde la 3.7.0 **tiene que preguntarte quién imputa** antes de
+   escribir nada. Si no lo pregunta, sigues en una versión anterior.
+
+### Si la versión no sube por mucho que actualices
+
+Casi siempre es una copia personal antigua que tapa al plugin:
+
+```
+rm -rf ~/.claude/skills/imputar
+```
+
+Con esa carpeta presente el comando local gana y el plugin no llega a usarse:
+puedes actualizar el marketplace indefinidamente sin ver ningún cambio.
+
 ## Añadir skills nuevas
 
 Crear `trabem/skills/<nombre>/SKILL.md` (con frontmatter `name`, `description`),
