@@ -14,6 +14,16 @@ Entrada del desarrollador: $ARGUMENTS
 
 ---
 
+# 00. QUIÉN IMPUTA — PREGUNTA OBLIGATORIA, ANTES DE NADA
+
+La cuenta de Claude es **compartida** por el equipo (Juan · María · Aurelio…). La sesión **NO sabe quién eres**. Por tanto, **antes de valorar o escribir nada**:
+
+- Si en la entrada el desarrollador **no ha dicho su nombre**, **pregúntalo en una línea**: «¿Quién imputa? (Juan / María / Aurelio / otro)». **Nunca lo asumas.**
+- El nombre fija el **`Responsable`** de la ficha y el **coste/hora real** de esa persona (vive en Notion, base `💰 Costes/hora TRABEM (privado)`; nunca en el repo, y **no** es la tarifa 70/30). Sin responsable no hay MC1 correcto.
+- Solo cuando sepas quién es, continúa con el resto (modo §1, horas, valoración).
+
+---
+
 # 0. PRESUPUESTO DE CONTEXTO — REGLA DURA, ANTES DE NADA
 
 `/imputar` se ejecuta casi siempre **al final del día, con la sesión ya larga**.

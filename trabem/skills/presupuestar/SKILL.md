@@ -9,6 +9,8 @@ disable-model-invocation: true
 
 ## Estimación ex ante de alcance, PF, referencia de construcción TRABEM (setup) y forma de cobro
 
+> **Cuenta compartida — confirma quién presupuesta, antes de nada.** La cuenta de Claude la usa todo el equipo (Juan · María · Aurelio…) y la sesión **no sabe quién eres**. Si no está claro **quién** pide el presupuesto o a quién se atribuye la valoración, **pregúntalo en una línea** («¿Quién presupuesta? Juan / María / Aurelio / otro»). **Nunca lo asumas.**
+
 ### MISIÓN
 
 La skill `/presupuestar` existe para transformar requisitos todavía no

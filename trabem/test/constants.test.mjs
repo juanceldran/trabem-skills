@@ -128,3 +128,28 @@ test('legacy documenta la semántica antigua para leer históricos', () => {
   assert.match(C.legacy.precio_a_cliente_por_capas, /VALOR TÉCNICO INTERNO/);
   assert.ok(C.legacy.campos_notion_conservados.includes('Referencia técnica (€)'));
 });
+
+// 8) Retribución en tres capas: estructura y tramos de EBITDA del variable colectivo.
+test('retribución en tres capas: estructura y tramos EBITDA del colectivo', () => {
+  const r = C.retribucion_tres_capas;
+  assert.ok(r, 'falta el bloque retribucion_tres_capas');
+  assert.ok(
+    r.capa_1_salario_fijo && r.capa_2_variable_individual && r.capa_3_variable_colectivo,
+    'deben existir las tres capas',
+  );
+  // Capa 1: el mínimo se ancla en la banda suelo de la unidad (Desarrollo = 160).
+  assert.equal(C.incentivo.unidades_de_desempeno.Desarrollo.bandas_pf.suelo, 160);
+  // Capa 3: tramos marginales de EBITDA, contiguos, con participación creciente, arrancando en 20%.
+  const tramos = r.capa_3_variable_colectivo.tramos_ebitda;
+  assert.equal(tramos[0].desde_pct, 20);
+  assert.equal(tramos.at(-1).hasta_pct, null, 'el último tramo es abierto (>35%)');
+  for (let i = 1; i < tramos.length; i++) {
+    assert.equal(tramos[i].desde_pct, tramos[i - 1].hasta_pct, 'los tramos deben ser contiguos');
+    assert.ok(
+      tramos[i].pct_excedente_tramo > tramos[i - 1].pct_excedente_tramo,
+      'la participación por tramo debe crecer',
+    );
+  }
+  // Las capas se calculan por separado (no doble contabilización).
+  assert.match(r.descripcion, /SEPARADO/);
+});

@@ -9,6 +9,8 @@ disable-model-invocation: true
 
 ## Valoración ex post, PF válidos, referencia de construcción TRABEM, contraste del presupuesto y aprendizaje
 
+> **Cuenta compartida — confirma el responsable, antes de nada.** La cuenta de Claude la usa todo el equipo (Juan · María · Aurelio…) y la sesión **no sabe quién eres**. Si vas a fijar o cambiar el `Responsable` / `Responsable valoración`, o el trabajo no dice de quién es, **pregúntalo en una línea** («¿Quién valora / de quién es este módulo? Juan / María / Aurelio / otro»). **Nunca lo asumas**: determina la atribución y el coste/hora real de esa persona.
+
 ### MISIÓN
 
 La skill `/valorar` existe para analizar un trabajo ya materializado y

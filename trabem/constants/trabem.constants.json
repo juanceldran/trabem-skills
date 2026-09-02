@@ -1,5 +1,5 @@
 {
-  "$schema_version": "1.0.0",
+  "$schema_version": "1.1.0",
   "doctrina_vigente_desde": "2026-08-30",
   "nota": "FUENTE ÚNICA de constantes del Método TRABEM. NO repetir estos literales (90, 70, 30, tablas ISBSG, 1,25, bandas) en las skills ni en la doctrina: referenciarlos por NOMBRE y cargar este fichero cuando se necesite un valor. Los registros históricos de Notion conservan su semántica antigua (ver 'legacy'); no se reescriben.",
 
@@ -82,6 +82,53 @@
       "Branding": { "estado": "a calibrar" },
       "Infra": { "estado": "a calibrar" }
     }
+  },
+
+  "retribucion_tres_capas": {
+    "descripcion": "Política retributiva TRABEM en TRES CAPAS, calculadas POR SEPARADO (sin doble premio ni doble penalización). Fuente de verdad: Notion '💰 Incentivos empleados · sistema de tres capas' (id 3cbb83b803fa81458f88c069d96ae389). Estado: arquitectura aprobada; umbrales/% en CALIBRACIÓN con datos reales antes de formalizar. No crear aún una skill de incentivos: solo datos trazables.",
+    "capa_1_salario_fijo": {
+      "remunera": "Hacer correctamente el puesto (responsabilidades, calidad mínima, plazos, método, colaboración). El margen base del puesto es de la empresa; NO genera variable.",
+      "puerta_objetivo_minimo": "Cada persona debe superar el MÍNIMO de desempeño de su función. Por debajo → 'bajo el punto de mira' (vía normal de desempeño, no variable).",
+      "objetivo_minimo_por_unidad": "= banda 'suelo' de la unidad de desempeño (incentivo.unidades_de_desempeno; Desarrollo = 160 PF/mes)."
+    },
+    "capa_2_variable_individual": {
+      "remunera": "Productividad extraordinaria PROPIA, medible y auditable, por encima del mínimo.",
+      "unidad_desarrollo": "PF netos válidos × VALOR_PF_EUR, bandas 160/240/320 (ver bloque incentivo).",
+      "formula_conceptual": "valor incremental elegible × participación empleado × factor calidad",
+      "puerta": "Calidad (sin calidad no hay individual completo). Separada de la colectiva.",
+      "referencia": "incentivo (VALOR_PF_EUR, bandas_mensuales_pf, unidades_de_desempeno, elegibilidad, ajuste_por_correctivo_ajeno)"
+    },
+    "capa_3_variable_colectivo": {
+      "remunera": "Resultado colectivo y la productividad que NO es PF (implantación, eficiencia/apalancamiento, correctivos absorbidos, infra) cuando la empresa gana.",
+      "bolsa": "Separada de la individual (sin proporción fija 60/40).",
+      "fuente_bolsa": "EBITDA operativo de incentivo que EXCEDA el 20%, por tramos marginales sobre el excedente de cada tramo.",
+      "tramos_ebitda": [
+        { "desde_pct": 20, "hasta_pct": 25, "pct_excedente_tramo": 10 },
+        { "desde_pct": 25, "hasta_pct": 30, "pct_excedente_tramo": 15 },
+        { "desde_pct": 30, "hasta_pct": 35, "pct_excedente_tramo": 20 },
+        { "desde_pct": 35, "hasta_pct": null, "pct_excedente_tramo": 25 }
+      ],
+      "reparto": "Por dedicación/FTE entre personas elegibles; cada una tras superar su mínimo (capa 1). La parte del no-elegible NO se redistribuye: queda en la empresa.",
+      "puerta_economica": "20% de EBITDA es el guardarraíl mínimo común. El 'EBITDA operativo de incentivo' puede neutralizar inversiones de crecimiento previamente aprobadas y documentadas (nunca reclasificar a posteriori).",
+      "caja_manda": "Aun con EBITDA suficiente, solo se liquida si tras financiar crecimiento, obligaciones y operación hay CAJA suficiente."
+    },
+    "dividendo_de_mejora": {
+      "descripcion": "APARTE del bonus ordinario. Premia mejora estructural REUTILIZABLE que cambia la máquina productiva (automatización, skill/herramienta, componente de producto, proceso que elimina trabajo futuro, infra que reduce coste/tiempo).",
+      "regla": "Premia el ahorro EFECTIVAMENTE capturado, no la promesa. Reutilización potencial ≠ demostrada; se activa con 2ª utilización real o evidencia equivalente. Con límite temporal (no renta perpetua).",
+      "referencia_orientativa": "~10% del ahorro real capturado durante 12 meses.",
+      "metrica": "EIE evitado por reutilización (métrica separada de la productividad ordinaria)."
+    },
+    "phantom_shares": {
+      "estado": "exploratorio · NO aprobado",
+      "uso": "Solo personas clave / retención largo plazo / creación sostenida de valor empresarial. Preferencia por phantom shares frente a participaciones reales.",
+      "referencia_exploratoria": "0,25–0,75%, vesting 4 años, cliff 1 año, ligada al incremento de valor de la compañía."
+    },
+    "reglas_gobierno": [
+      "Evaluar dentro de funciones comparables (no comparar Desarrollo vs Admin vs CEO vs Comercial como la misma actividad).",
+      "Separar productividad individual / estructural-reutilizable / colectiva (no doble contabilización).",
+      "Puerta de calidad antes de liquidar el individual; puerta económica (EBITDA + caja) para el colectivo.",
+      "No cambiar retrospectivamente las métricas para justificar un bonus."
+    ]
   },
 
   "factor_k": {
