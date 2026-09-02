@@ -86,10 +86,30 @@ EIE, Factor K, porcentajes ni MC1: eso lo derivas tú de la evidencia.
 
 Imputa de una vez todo lo trabajado hoy, repartido entre módulos.
 
-1. **Persona y jornada** (denominador fijo, no se pregunta cada día):
-   María 7 h · Juan 7 h · default 7 h.
-   `/imputar 10` fuerza 10 h ese día (jornada extraordinaria: déjalo dicho en
-   la bitácora).
+1. **Quién imputa — PREGUNTA OBLIGATORIA.** Juan, Aurelio y María trabajan
+   **desde la misma cuenta**: la sesión NO identifica a la persona, y no puedes
+   deducirla del entorno, del repo, del autor de los commits ni del historial
+   de la conversación. Si `$ARGUMENTS` no la nombra, **pregunta «¿quién imputa?»
+   y espera respuesta antes de escribir nada**. Nunca la supongas, ni la heredes
+   de la ficha anterior o de la última imputación del día.
+   Una ficha con `Responsable` equivocado corrompe a la vez el coste real de dos
+   personas y descuadra el reparto de horas: es el fallo más caro de esta skill.
+   **`Responsable` se escribe exactamente así** (campo de texto libre, sin
+   validación: cualquier variante parte las agrupaciones por persona):
+   `Juan Celdrán Alenda` · `Aurelio Fernández Moreno` · `María Sánchez Moreno` ·
+   `Paqui`.
+   **Jornada por persona** (denominador fijo, no se pregunta cada día):
+
+   | Persona | Jornada |
+   |---|---|
+   | Juan | 8 h |
+   | María | 7 h |
+   | Aurelio | 7 h |
+   | Paqui | 6 h |
+
+   Persona que no esté en la tabla → **pregunta su jornada**, no apliques 7 h
+   por defecto. `/imputar 10` fuerza 10 h ese día (jornada extraordinaria:
+   déjalo dicho en la bitácora).
 2. **Módulos del día**: `git log --oneline --since=midnight` en los repos
    accesibles → 2–4 módulos por repo/carpeta/rama. El trabajo sin git (ops,
    Holded, Notion…) lo nombra el desarrollador en una línea. Sin evidencia ni
@@ -136,7 +156,20 @@ bitácora con una última fila. Sin re-valorar todo desde cero.
 - **Horas**: `Horas humanas Claude` + `Horas humanas fuera` = `totales`.
   `Base horas` = `Registradas` (las aporta la persona) o `Estimadas`
   (reconstruidas). No presentes estimadas como registradas.
-- **MC1**: `Coste hora humano` **real por persona** (salario cargado; vive en Notion, no en el repo; **no** es la tarifa 70/30) → `Coste humano MC1 = Σ(horas × coste hora real)`.
+- **MC1**: `Coste hora humano` **real de la persona que imputa** (§3.1) →
+  `Coste humano MC1 = Σ(horas × coste hora real)`.
+  El importe sale **únicamente** de la base privada de Notion
+  `💰 Costes/hora TRABEM (privado)`. Ojo: esa base está indexada por **nombre de
+  pila** (Juan · Aurelio · María · Paqui), no por el nombre completo que va en
+  `Responsable`. No
+  vive en el repo y no debe memorizarse. **Es dato confidencial**: úsalo para el
+  cálculo y **no lo reproduzcas** en la ficha, en la bitácora, en el resumen (§8)
+  ni en la conversación — solo se muestra el `Coste humano MC1` ya calculado.
+  **Las tarifas 70/30 NO son coste.** 70 €/h (criterio humano) y 30 €/h
+  (producción por agente) son precio de venta; meterlas en `Coste hora humano`
+  infla el coste varias veces y destruye el MC1. Si no encuentras el coste de esa
+  persona: **deja el campo vacío y dilo**. No lo sustituyas por una tarifa ni por
+  el coste de otra persona.
   Más `Coste IA`, `Otros MC1`, `MC1 total`. La **suscripción plana de Claude
   Code es MC2** y no se imputa.
 - **Ratio compresión = EIE / horas totales**, solo si las horas son
