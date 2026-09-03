@@ -14,6 +14,19 @@ Entrada del desarrollador: $ARGUMENTS
 
 ---
 
+# 00. QUIÉN IMPUTA — PREGUNTA OBLIGATORIA, ANTES DE NADA
+
+La cuenta de Claude es **compartida** por el equipo (Juan · María · Aurelio…). La sesión **NO sabe quién eres**. Por tanto, **antes de valorar o escribir nada**:
+
+- Si en la entrada el desarrollador **no ha dicho su nombre**, **pregúntalo en una línea**: «¿Quién imputa? (Juan / María / Aurelio / otro)». **Nunca lo asumas.**
+- El nombre fija el **`Responsable`** de la ficha. Fíjalo siempre.
+- **El coste/hora es PRIVADO — nadie del equipo ve el de nadie.** Vive en la base `💰 Costes/hora TRABEM (privado)`, a la que **solo el founder** tiene acceso (nunca en el repo; **no** es la tarifa 70/30). Por eso:
+  - Si **NO eres el founder** (imputa María, Aurelio, u otro): **NO rellenes `Coste hora humano`, `Coste humano MC1` ni `MC1 total`.** Déjalos **VACÍOS** y di en el resumen: «coste pendiente de aplicar por el founder». Tú imputas horas y trabajo; el coste no es cosa tuya y no debes verlo. El MC1 en blanco es lo CORRECTO, no un error.
+  - **Solo el founder** aplica el MC1 después, en una pasada aparte, leyendo la base privada: `Coste humano MC1 = horas × coste/hora real`. Así nadie ve el coste de nadie.
+- Solo cuando sepas quién es, continúa con el resto (modo §1, horas, valoración).
+
+---
+
 # 0. PRESUPUESTO DE CONTEXTO — REGLA DURA, ANTES DE NADA
 
 `/imputar` se ejecuta casi siempre **al final del día, con la sesión ya larga**.
