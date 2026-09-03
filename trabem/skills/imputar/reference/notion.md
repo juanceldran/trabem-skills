@@ -19,6 +19,13 @@ campos existentes).
 **Identificación:** `Módulo` (title), `Proyecto` (text), `Responsable` (text),
 `Repositorio` (url), `Tipo proyecto` (select Propio/Cliente), `Resumen` (text).
 
+> `Responsable` es **texto libre sin validación**. Escribe siempre uno de estos
+> cuatro, literal: `Juan Celdrán Alenda` · `Aurelio Fernández Moreno` ·
+> `María Sánchez Moreno` · `Paqui Celdrán Alenda`. Cualquier variante (p. ej.
+> «Juan Celdrán») crea una
+> persona fantasma y parte en dos las agrupaciones por responsable.
+> Quién es se **pregunta**, no se deduce: los tres comparten cuenta (SKILL §3.1).
+
 **Origen y clasificación:**
 - `Origen del trabajo` (select): Cliente · Producto · Bug · Incidente
   producción · Mejora interna · Deuda técnica · Arquitectura · Seguridad ·
@@ -85,7 +92,9 @@ AI-native rate:
 Humano-dominante:
 
 ## MC1
-Coste hora:
+Coste hora:   ← de `💰 Costes/hora TRABEM (privado)`, por persona. Confidencial:
+              úsalo para calcular, no lo escribas en la ficha ni lo cites.
+              NUNCA las tarifas de venta 70/30.
 Horas humanas Claude:
 Horas humanas fuera:
 Horas humanas totales:
