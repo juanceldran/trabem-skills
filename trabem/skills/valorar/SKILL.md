@@ -98,6 +98,36 @@ EIF reales; aplicar DET/FTR/RET. Calcular `PF total`. Separar cuando proceda
 
 ---
 
+# 5bis. TALLA — PROXY REPRODUCIBLE DE PF (por defecto)
+
+El conteo IFPUG-a-mano desde la prosa no es reproducible (el mismo módulo salía
+40 o 61 según quién contara). **Por defecto, asigna una TALLA** (campo `Talla`
+del Registro EIE) — da un PF fijo y consistente, que es lo que importa para
+incentivo y pricing (la consistencia, no el decimal IFPUG):
+
+| Talla | PF | Cuándo |
+|---|---:|---|
+| **XS** | 3 | campo/toggle/micro-feature |
+| **S** | 6 | feature pequeña |
+| **M** | 15 | módulo medio |
+| **L** | 35 | módulo grande |
+| **XL** | 60 | plataforma |
+| **0 · no funcional** | 0 | correctivo, optimización, infra, ops, reunión, **implantación/despliegue** de producto ya existente |
+
+El campo `PF (talla)` calcula el PF solo desde la talla. **Escribe siempre la
+`Talla`**; salvo módulo grande o disputado, `PF válidos = PF (talla)`.
+
+**IFPUG detallado (§5) solo** para: módulos L/XL, precio disputado, o cuando el
+cliente pida el desglose. En ese caso cuenta EI/EO/EQ/ILF, pon `Confianza PF`
+Media/Alta, y ajusta la talla si el conteo se aleja mucho del valor de tabla
+(recalibración del histórico).
+
+Guardarraíl: la talla mide **tamaño funcional entregado**, no esfuerzo ni horas.
+Implantar/desplegar un producto que ya existe es **0** (el PF ya se contó al
+construirlo); se factura por horas, no por PF (no doble contabilización, §7, §14).
+
+---
+
 # 6. PUERTA DE CALIDAD → PF VÁLIDOS
 
 Aplicar la **puerta de calidad** (testing, estabilidad, seguridad, etc.). El
