@@ -253,6 +253,37 @@ propuesta comercial y no repite doctrina.
 
 ---
 
+# 8bis. PARTE DIARIO — ESCRIBIR SIEMPRE, TRAS LA FICHA
+
+Desde 2026-09: **la imputación es POR DÍA.** Además de la ficha del módulo (Registro
+EIE), `/imputar` **añade una fila por cada día/módulo imputado** a la base
+**`📅 Parte diario TRABEM`** (data source Notion
+`collection://ddfde010-7092-4cc7-8824-5aebe0cd0a63`). Es lo que alimenta el
+**control de jornada** y el **radar de días sin imputar**; sin esta fila, no hay parte.
+
+Una fila por **(persona · día · módulo)**:
+
+- **Persona** (select): Juan · María · Aurelio · Paqui — el `Responsable` (§00).
+- **Fecha**: el **día real** del trabajo (el de la fila de bitácora), NO la fecha de
+  valoración. Si un módulo abarca varios días, **una fila por día**.
+- **Horas**: las de ese día en ese módulo (las que reparte §3.4 en modo diario).
+- **Tipo** (select), según quién lo encarga y cómo se cobra (ver `criterio de cobro`):
+  `Cliente-PF` (construcción que produce PF) · `Cliente-horas` (reunión/urgencia/
+  correctivo/diagnóstico que pide el cliente) · `Producto` (iniciativa propia, se
+  recupera por suscripción) · `Interno` (overhead no facturable).
+- **Cliente**: nombre del cliente (texto), si aplica.
+- **Módulo**: relación a la ficha del Registro EIE.
+
+**Control de jornada** (lo consume la vista, no lo calcula la skill): jornada por
+persona Juan 8 · María 7 · Aurelio 7 · Paqui 6; calendario **L–V** (fines de semana
+y **festivos de Murcia** fuera). Un día laborable **sin fila** = pendiente de imputar.
+
+No inventes días: si el desarrollador imputa "hoy", la fila es de hoy. Solo se
+reconstruyen días pasados si él los nombra explícitamente (y entonces `Base horas:
+Estimadas`).
+
+---
+
 # 9. LO QUE `/imputar` NO HACE
 
 Conteo IFPUG, DET/FTR/RET, benchmark ISBSG, €/PF, P65, precio recomendado,
